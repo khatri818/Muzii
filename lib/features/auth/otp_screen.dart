@@ -1,68 +1,62 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/common/app_style.dart';
-import 'package:flutter_application_1/common/commonButton.dart';
-import 'package:flutter_application_1/features/auth/otp_screen.dart';
+import 'package:flutter_application_1/common/TextField.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+import '../../common/app_style.dart';
+import '../../common/commonButton.dart';
+
+class OTPScreen extends StatefulWidget {
+  const OTPScreen({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<OTPScreen> createState() => _OTPScreenState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _OTPScreenState extends State<OTPScreen> {
   FocusNode focusNode = FocusNode();
+  final TextEditingController otp = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            backgroundColor: Colors.white,
-            title: const Text(
-              'Login/Signup',
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black),
-            )),
+          backgroundColor: Colors.white,
+          title: const Text(
+            'Login',
+            style: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.w700, color: Colors.black),
+          ),
+          leading: const BackButton(
+            color: Colors.black,
+          ),
+        ),
         body: Padding(
-          padding: EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(15.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
-                height: 50,
+                height: 40,
               ),
               const Text(
-                "Welcome to Lemo!",
+                "Verify with OTP",
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                     color: Colors.black),
               ),
               const SizedBox(
-                height: 20,
+                height: 60,
               ),
               const Text(
-                "Abhi shuru karein apne gaano ka distribution,bilkul free!",
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              const Text(
-                "Login/Signup",
+                "OTP Send to",
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                     color: Colors.black),
               ),
               const SizedBox(
-                height: 50,
+                height: 30,
               ),
               IntlPhoneField(
                 focusNode: focusNode,
@@ -92,32 +86,25 @@ class _LoginPageState extends State<LoginPage> {
                 },
               ),
               const SizedBox(
-                height: 50,
-              ),
-              CommonButton(
-                  label: "Continue",
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const OTPScreen(),
-                      ),
-                    );
-                  }),
-              const SizedBox(
-                height: 200,
+                height: 40,
               ),
               const Text(
-                "By creating an account or logging in, you agree with Lemo’s ",
+                "Enter OTP",
                 style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w300,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
                     color: Colors.black),
               ),
-              Text("Terms and Conditions and Privacy Policy.",
-                  style: Appstyle.title),
+              CommonTextFeild(
+                controller: otp,
+                label: '',
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              CommonButton(label: "Continue", onPressed: () {}),
             ],
           ),
         ));
   }
 }
-//
