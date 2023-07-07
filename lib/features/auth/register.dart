@@ -1,30 +1,35 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/common/TextField.dart';
-import 'package:flutter_application_1/common/style.dart';
-import 'package:flutter_application_1/features/auth/register.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
+import '../../common/TextField.dart';
 import '../../common/app_style.dart';
 import '../../common/commonButton.dart';
+import '../../common/common_textformfield_dropdown.dart';
+import '../../common/style.dart';
 
-class OTPScreen extends StatefulWidget {
-  const OTPScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<OTPScreen> createState() => _OTPScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _OTPScreenState extends State<OTPScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
+  final options = <String>[
+    'India',
+    'Korea',
+    'USA',
+  ];
+  final gender = <String>['Male', 'Female', "Other"];
   FocusNode focusNode = FocusNode();
-  final TextEditingController otp = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
           title: const Text(
-            'Login',
+            'Register',
             style: TextStyle(
                 fontSize: 18, fontWeight: FontWeight.w700, color: Colors.black),
           ),
@@ -34,21 +39,35 @@ class _OTPScreenState extends State<OTPScreen> {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Styles.sizedBoxH40,
-                Text("Verify with OTP", style: Appstyle.appbar),
-                Styles.sizedBoxH40,
+                Styles.sizedBoxH50,
+                Text(
+                  "Welcome",
+                  style: Appstyle.title1,
+                ),
+                Styles.sizedBoxH10,
                 const Text(
-                  "OTP Send to",
+                  "Let's  get started with Lemo",
                   style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w300,
                       color: Colors.black),
                 ),
-                Styles.sizedBoxH30,
+                Styles.sizedBoxH10,
+                CommonTextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter name';
+                    }
+                    return null;
+                  },
+                  hintText: 'Enter your full name',
+                ),
+                Styles.sizedBoxH10,
                 IntlPhoneField(
                   focusNode: focusNode,
                   decoration: const InputDecoration(
@@ -76,38 +95,42 @@ class _OTPScreenState extends State<OTPScreen> {
                     }
                   },
                 ),
-                Styles.sizedBoxH40,
-                const Text(
-                  "Enter OTP",
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black),
-                ),
-                Styles.sizedBoxH30,
+                Styles.sizedBoxH10,
                 CommonTextFormField(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  keyboardType: TextInputType.phone,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter OTP';
+                      return 'Please enter Email';
                     }
                     return null;
                   },
-                  hintText: 'Start Typing',
+                  hintText: 'Email Id',
                 ),
                 Styles.sizedBoxH10,
-                Row(
-                  children: [
-                    Text(
-                      "Resend OTP",
-                      style: Appstyle.text,
-                    ),
-                    Text(
-                      "  in 00:30",
-                      style: Appstyle.text1,
-                    ),
-                  ],
+                CustomDropdown(
+                    dropdownValue: "Select Country",
+                    options: options,
+                    validator: null,
+                    controller: null,
+                    hintText: 'Select'),
+                Styles.sizedBoxH10,
+                CustomDropdown(
+                  hintText: 'Select',
+                  dropdownValue: 'Select Gender',
+                  options: gender,
+                  validator: null,
+                  controller: null,
+                ),
+                Styles.sizedBoxH10,
+                CommonTextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter D.O.B';
+                    }
+                    return null;
+                  },
+                  hintText: 'Date Of Birth (DD/MM/YYYY)',
                 ),
                 Styles.sizedBoxH50,
                 CommonButton(
