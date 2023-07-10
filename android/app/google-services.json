@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "482923272018",
+    "project_id": "lemo-project-2143f",
+    "storage_bucket": "lemo-project-2143f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482923272018:android:1fd403028cc75db5c30c8b",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "482923272018-ab085qs3juq38tjr7rua6766gk03hmq1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQ16JRLwBg91TLNss3r6HUnCxE5aZnnV8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "482923272018-ab085qs3juq38tjr7rua6766gk03hmq1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

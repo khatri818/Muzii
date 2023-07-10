@@ -5,6 +5,7 @@ import 'package:flutter_application_1/common/commonButton.dart';
 import 'package:flutter_application_1/features/auth/otp_screen.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
+import '../../common/app_colors.dart';
 import '../../common/style.dart';
 
 class LoginPage extends StatefulWidget {
@@ -60,17 +61,25 @@ class _LoginPageState extends State<LoginPage> {
                 Styles.sizedBoxH50,
                 IntlPhoneField(
                   focusNode: focusNode,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Enter your mobile number',
-                    fillColor: Colors.white,
-                    labelStyle: TextStyle(
+                    fillColor: AppColors.grey.withOpacity(0.1),
+                    focusColor: AppColors.grey.withOpacity(0.1),
+                    labelStyle: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: Color(0xff8391A1)),
-                    errorStyle: TextStyle(color: Colors.red),
+                    errorStyle: const TextStyle(color: Colors.red),
                     filled: true,
                     border: OutlineInputBorder(
-                      borderSide: BorderSide(),
+                        borderSide:
+                            BorderSide(color: AppColors.grey.withOpacity(0.1))),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: AppColors.grey.withOpacity(0.1))),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: AppColors.grey.withOpacity(0.1)),
                     ),
                   ),
                   initialCountryCode: 'IN',

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../common/TextField.dart';
+import '../../common/app_colors.dart';
 import '../../common/app_style.dart';
 import '../../common/commonButton.dart';
 import '../../common/common_textformfield_dropdown.dart';
@@ -40,107 +41,117 @@ class _RegisterScreenState extends State<RegisterScreen> {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Styles.sizedBoxH50,
-                Text(
-                  "Welcome",
-                  style: Appstyle.title1,
-                ),
-                Styles.sizedBoxH10,
-                const Text(
-                  "Let's  get started with Lemo",
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.black),
-                ),
-                Styles.sizedBoxH10,
-                CommonTextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter name';
-                    }
-                    return null;
-                  },
-                  hintText: 'Enter your full name',
-                ),
-                Styles.sizedBoxH10,
-                IntlPhoneField(
-                  focusNode: focusNode,
-                  decoration: const InputDecoration(
-                    labelText: 'Enter your mobile number',
-                    fillColor: Colors.white,
-                    labelStyle: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xff8391A1)),
-                    errorStyle: TextStyle(color: Colors.red),
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(),
-                    ),
+            child: Form(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Styles.sizedBoxH50,
+                  Text(
+                    "Welcome",
+                    style: Appstyle.title1,
                   ),
-                  initialCountryCode: 'IN',
-                  onChanged: (phone) {
-                    if (kDebugMode) {
-                      print(phone.completeNumber);
-                    }
-                  },
-                  onCountryChanged: (country) {
-                    if (kDebugMode) {
-                      print('Country changed to: ${country.name}');
-                    }
-                  },
-                ),
-                Styles.sizedBoxH10,
-                CommonTextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter Email';
-                    }
-                    return null;
-                  },
-                  hintText: 'Email Id',
-                ),
-                Styles.sizedBoxH10,
-                CustomDropdown(
-                    dropdownValue: "Select Country",
-                    options: options,
+                  Styles.sizedBoxH10,
+                  const Text(
+                    "Let's  get started with Lemo",
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w300,
+                        color: Colors.black),
+                  ),
+                  Styles.sizedBoxH20,
+                  CommonTextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter name';
+                      }
+                      return null;
+                    },
+                    hintText: 'Enter your full name',
+                  ),
+                  Styles.sizedBoxH10,
+                  IntlPhoneField(
+                    focusNode: focusNode,
+                    decoration: InputDecoration(
+                      labelText: 'Enter your mobile number',
+                      fillColor: AppColors.grey.withOpacity(0.1),
+                      focusColor: AppColors.grey.withOpacity(0.1),
+                      labelStyle: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xff8391A1)),
+                      errorStyle: const TextStyle(color: Colors.red),
+                      filled: true,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: AppColors.grey.withOpacity(0.1))),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: AppColors.grey.withOpacity(0.1))),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: AppColors.grey.withOpacity(0.1)),
+                      ),
+                    ),
+                    initialCountryCode: 'IN',
+                    onChanged: (phone) {
+                      if (kDebugMode) {
+                        print(phone.completeNumber);
+                      }
+                    },
+                    onCountryChanged: (country) {
+                      if (kDebugMode) {
+                        print('Country changed to: ${country.name}');
+                      }
+                    },
+                  ),
+                  Styles.sizedBoxH10,
+                  CommonTextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter Email';
+                      }
+                      return null;
+                    },
+                    hintText: 'Email Id',
+                  ),
+                  Styles.sizedBoxH10,
+                  CustomDropdown(
+                      dropdownValue: "Select Country",
+                      options: options,
+                      validator: null,
+                      controller: null,
+                      hintText: 'Select'),
+                  Styles.sizedBoxH10,
+                  CustomDropdown(
+                    hintText: 'Select',
+                    dropdownValue: 'Select Gender',
+                    options: gender,
                     validator: null,
                     controller: null,
-                    hintText: 'Select'),
-                Styles.sizedBoxH10,
-                CustomDropdown(
-                  hintText: 'Select',
-                  dropdownValue: 'Select Gender',
-                  options: gender,
-                  validator: null,
-                  controller: null,
-                ),
-                Styles.sizedBoxH10,
-                CommonTextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter D.O.B';
-                    }
-                    return null;
-                  },
-                  hintText: 'Date Of Birth (DD/MM/YYYY)',
-                ),
-                Styles.sizedBoxH50,
-                CommonButton(
-                    label: "Submit OTP",
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const RegisterScreen(),
-                      ));
-                    }),
-              ],
+                  ),
+                  Styles.sizedBoxH10,
+                  CommonTextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter D.O.B';
+                      }
+                      return null;
+                    },
+                    hintText: 'Date Of Birth (DD/MM/YYYY)',
+                  ),
+                  Styles.sizedBoxH50,
+                  CommonButton(
+                      label: "Submit OTP",
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const RegisterScreen(),
+                        ));
+                      }),
+                ],
+              ),
             ),
           ),
         ));
