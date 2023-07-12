@@ -2,7 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/app_style.dart';
 import 'package:flutter_application_1/common/commonButton.dart';
-import 'package:flutter_application_1/features/auth/otp_screen.dart';
+import 'package:flutter_application_1/features/auth/Login_otp_screen.dart';
+import 'package:flutter_application_1/features/services/auth_service.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../common/app_colors.dart';
@@ -17,6 +18,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   FocusNode focusNode = FocusNode();
+  TextEditingController phoneController = TextEditingController();
+  AuthClass authClass = AuthClass();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,6 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                 Styles.sizedBoxH50,
                 IntlPhoneField(
                   focusNode: focusNode,
+                  controller: phoneController,
                   decoration: InputDecoration(
                     labelText: 'Enter your mobile number',
                     fillColor: AppColors.grey.withOpacity(0.1),
@@ -83,26 +87,28 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   initialCountryCode: 'IN',
-                  onChanged: (phone) {
-                    if (kDebugMode) {
-                      print(phone.completeNumber);
-                    }
-                  },
-                  onCountryChanged: (country) {
-                    if (kDebugMode) {
-                      print('Country changed to: ${country.name}');
-                    }
-                  },
                 ),
                 const SizedBox(
                   height: 50,
                 ),
                 CommonButton(
                     label: "Continue",
+                    //   authClass.signInwithPhoneNumber(
+                    // verificationIdFinal, smsCode, context);
                     onPressed: () {
+                      (phone) async {
+                        if (kDebugMode) {
+                          print(phone.completeNumber);
+                        }
+                        //   await authClass.verifyPhoneNumber(
+                        //       "+91 ${phoneController.text}", context, setData);
+                        // };}
+                      };
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const OTPScreen(),
+                          builder: (context) => LoginOTPScreen(
+                            phone: phoneController.text,
+                          ),
                         ),
                       );
                     }),
@@ -123,5 +129,11 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ));
   }
+
+  
+  void setData(verificationId) {
+    setState(() {
+      verificationId = verificationId;
+    });
+  }
 }
-//

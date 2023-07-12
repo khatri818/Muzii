@@ -20,6 +20,7 @@ dependencies:
   intl_phone_field: ^3.2.0
   firebase_core: ^2.14.0
   firebase_auth: ^4.6.3
+  otp_text_field: ^1.1.3
  
 
 
