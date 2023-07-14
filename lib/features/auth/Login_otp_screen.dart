@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/style.dart';
@@ -8,10 +10,12 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:provider/provider.dart';
 
 import '../../common/app_colors.dart';
 import '../../common/app_style.dart';
 import '../../common/commonButton.dart';
+import '../../models/auth_model.dart';
 import '../services/auth_service.dart';
 
 class LoginOTPScreen extends StatefulWidget {
@@ -44,7 +48,12 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
   int start = 30;
   String buttonName = "Resend OTP";
   bool wait = true;
+  bool isLoading = false;
   final TextEditingController otp = TextEditingController();
+  final Map<String, String> loginData = {
+    'phoneNumber': null.toString(),
+    'phoneCountryCode.': null.toString(),
+  };
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -164,10 +173,15 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
                     onPressed: () async {
                       await authClass.signInwithPhoneNumber(
                           verificationIdFinal, smsCode, context);
+                    //  _httpsCall();
+                      _loginHandler();
+                      //    login();
                       // ignore: use_build_context_synchronously
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const RegisterScreen(),
-                      ));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const RegisterScreen(),
+                        ),
+                      );
                     }),
               ],
             ),
@@ -221,5 +235,55 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
       verificationIdFinal = verificationId;
     });
     startTimer();
+  }
+
+  void _errorDialog({required String title, required String errorMessage}) {
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              title: Text(title),
+              content: Text(errorMessage),
+              actions: [
+                TextButton(
+                  child: const Text('Okay'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            )); //End of showDialog method
+  } //End of _errorDialog method
+
+  // ignore: unused_element
+  void _loginHandler() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      await Provider.of<AuthModel>(context, listen: false).login(loginData);
+    } on HttpException catch (err) {
+      _errorDialog(title: 'An error occoured', errorMessage: err.toString());
+    } catch (err) {
+      _errorDialog(
+          title: 'An error occoured on server', errorMessage: err.toString());
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  _httpsCall() async {
+    // Fetch the currentUser, and then get its id token
+    final user = await FirebaseAuth.instance.currentUser;
+    final idToken = await user!.getIdToken();
+    final token = idToken;
+    if (kDebugMode) {
+      print(token.toString());
+    }
+    AlertDialog(
+      content: Text(token.toString()),
+    );
   }
 }

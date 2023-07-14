@@ -71,4 +71,5 @@ class AuthClass {
   }
 
   void storeTokenAndData(UserCredential userCredential) {}
+  
 }
