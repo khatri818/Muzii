@@ -114,6 +114,7 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
                     ),
                     initialCountryCode: 'IN',
                     onCountryChanged: (country) {
+                    //  FocusScope.of(context).requestFocus(FocusNode());
                       if (kDebugMode) {
                         print('Country changed to: ${country.name}');
                       }
@@ -173,7 +174,7 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
                     onPressed: () async {
                       await authClass.signInwithPhoneNumber(
                           verificationIdFinal, smsCode, context);
-                    //  _httpsCall();
+                      //  _httpsCall();
                       _loginHandler();
                       //    login();
                       // ignore: use_build_context_synchronously
@@ -182,7 +183,8 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
                           builder: (context) => const RegisterScreen(),
                         ),
                       );
-                    }),
+                    }
+                    ),
               ],
             ),
           ),
@@ -274,6 +276,7 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
     }
   }
 
+  // ignore: unused_element
   _httpsCall() async {
     // Fetch the currentUser, and then get its id token
     final user = await FirebaseAuth.instance.currentUser;

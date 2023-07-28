@@ -1,6 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/features/auth/login_screen.dart';
+import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:provider/provider.dart';
 
 import '../../common/TextField.dart';
 import '../../common/app_colors.dart';
@@ -8,6 +11,7 @@ import '../../common/app_style.dart';
 import '../../common/commonButton.dart';
 import '../../common/common_textformfield_dropdown.dart';
 import '../../common/style.dart';
+import '../../models/auth_model.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -17,13 +21,22 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final options = <String>[
+  final country = <String>[
     'India',
     'Korea',
     'USA',
   ];
   final gender = <String>['Male', 'Female', "Other"];
   FocusNode focusNode = FocusNode();
+  final _from = GlobalKey<FormState>();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController dobController = TextEditingController();
+
+  String genderdrop = '';
+  String countrydrop = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +55,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Form(
+              key: _from,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -61,6 +75,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Styles.sizedBoxH20,
                   CommonTextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
+                    controller: nameController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter name';
@@ -72,6 +87,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Styles.sizedBoxH10,
                   IntlPhoneField(
                     focusNode: focusNode,
+                    controller: phoneController,
                     decoration: InputDecoration(
                       labelText: 'Enter your mobile number',
                       fillColor: AppColors.grey.withOpacity(0.1),
@@ -108,6 +124,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Styles.sizedBoxH10,
                   CommonTextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
+                    controller: emailController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter Email';
@@ -119,7 +136,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Styles.sizedBoxH10,
                   CustomDropdown(
                       dropdownValue: "Select Country",
-                      options: options,
+                      options: country,
+                      onChange: (value) {
+                        countrydrop = value!;
+                      },
                       validator: null,
                       controller: null,
                       hintText: 'Select'),
@@ -127,6 +147,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   CustomDropdown(
                     hintText: 'Select',
                     dropdownValue: 'Select Gender',
+                    onChange: (value) {
+                      genderdrop = value!;
+                    },
                     options: gender,
                     validator: null,
                     controller: null,
@@ -134,6 +157,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Styles.sizedBoxH10,
                   CommonTextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
+                    controller: dobController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter D.O.B';
@@ -145,9 +169,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Styles.sizedBoxH50,
                   CommonButton(
                       label: "Submit OTP",
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const RegisterScreen(),
+                      onPressed: () async {
+                        if (genderdrop.isNotEmpty &&
+                            countrydrop.isNotEmpty &&
+                            nameController.text.isNotEmpty &&
+                            emailController.text.isEmpty &&
+                            phoneController.text.isEmpty &&
+                            dobController.text.isEmpty) {
+                          Provider.of<AuthModel>(context).signup({});
+                        } else {
+                          const snackBar = SnackBar(
+                            content: Text('Yay! A SnackBar!'),
+                          );
+
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
+                        await Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const LoginPage(),
                         ));
                       }),
                 ],

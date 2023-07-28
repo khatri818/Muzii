@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/app_style.dart';
 import 'package:flutter_application_1/common/commonButton.dart';
 import 'package:flutter_application_1/features/auth/Login_otp_screen.dart';
+import 'package:flutter_application_1/features/home/tabbarview.dart';
 import 'package:flutter_application_1/features/services/auth_service.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../common/app_colors.dart';
 import '../../common/style.dart';
+import '../home/view_releasesscreen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -92,26 +94,35 @@ class _LoginPageState extends State<LoginPage> {
                   height: 50,
                 ),
                 CommonButton(
-                    label: "Continue",
-                    //   authClass.signInwithPhoneNumber(
-                    // verificationIdFinal, smsCode, context);
-                    onPressed: () {
-                      (phone) async {
-                        if (kDebugMode) {
-                          print(phone.completeNumber);
-                        }
-                        //   await authClass.verifyPhoneNumber(
-                        //       "+91 ${phoneController.text}", context, setData);
-                        // };}
-                      };
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => LoginOTPScreen(
-                            phone: phoneController.text,
-                          ),
-                        ),
-                      );
-                    }),
+                  label: "Continue",
+                  //   authClass.signInwithPhoneNumber(
+                  // verificationIdFinal, smsCode, context);
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => MyTabBarView(),
+                      ),
+                    );
+                  },
+                  // onPressed: () {
+                  // //  FocusScope.of(context).requestFocus(FocusNode());
+                  //   (phone) async {
+                  //     if (kDebugMode) {
+                  //       print(phone.completeNumber);
+                  //     }
+                  //     //   await authClass.verifyPhoneNumber(
+                  //     //       "+91 ${phoneController.text}", context, setData);
+                  //     // };}
+                  //   };
+                  //   Navigator.of(context).push(
+                  //     MaterialPageRoute(
+                  //       builder: (context) => LoginOTPScreen(
+                  //         phone: phoneController.text,
+                  //       ),
+                  //     ),
+                  //   );
+                  // }
+                ),
                 const SizedBox(
                   height: 210,
                 ),
@@ -130,7 +141,6 @@ class _LoginPageState extends State<LoginPage> {
         ));
   }
 
-  
   void setData(verificationId) {
     setState(() {
       verificationId = verificationId;
