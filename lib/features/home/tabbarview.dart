@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/app_colors.dart';
+import 'package:flutter_application_1/common/app_style.dart';
+import 'package:flutter_application_1/common/style.dart';
+import 'package:flutter_application_1/constant/image_resource.dart';
 
-class MyTabBarView extends StatefulWidget {
+class TabBarViewData extends StatefulWidget {
+  const TabBarViewData({super.key});
+
   @override
-  _MyTabBarViewState createState() => _MyTabBarViewState();
+  // ignore: library_private_types_in_public_api
+  _TabBarViewDataState createState() => _TabBarViewDataState();
 }
 
-class _MyTabBarViewState extends State<MyTabBarView>
+class _TabBarViewDataState extends State<TabBarViewData>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
@@ -14,7 +20,7 @@ class _MyTabBarViewState extends State<MyTabBarView>
   void initState() {
     super.initState();
     _tabController =
-        TabController(length: 3, vsync: this); // Set the number of tabs here
+        TabController(length: 4, vsync: this); // Set the number of tabs here
   }
 
   @override
@@ -26,27 +32,50 @@ class _MyTabBarViewState extends State<MyTabBarView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.black,
-        bottom: TabBar(
-          controller: _tabController,
-          indicator: BoxDecoration(
-              borderRadius: BorderRadius.circular(30), // Creates border
-              color: Colors.greenAccent),
-          tabs: const [
-            Tab(text: 'Tab 1'),
-            Tab(text: 'Tab 2'),
-            Tab(text: 'Tab 3'),
-          ],
-        ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
+      body: Column(
         children: [
-          // Add the content for each tab here
-          Center(child: Text('Content for Tab 1')),
-          Center(child: Text('Content for Tab 2')),
-          Center(child: Text('Content for Tab 3')),
+          Styles.sizedBoxH10,
+          Styles.sizedBoxH15,
+          Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              elevation: 5,
+              child: SizedBox(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: TabBar(
+                    controller: _tabController,
+                    indicator: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(12), // Creates border
+                        color: AppColors.orange),
+                    isScrollable: true,
+                    labelPadding: const EdgeInsets.symmetric(horizontal: 45),
+                    labelColor: AppColors.white,
+                    unselectedLabelColor: AppColors.grey,
+                    labelStyle: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w500),
+                    tabs: const [
+                      Tab(
+                        text: 'Drafts',
+                      ),
+                      Tab(text: 'In Review'),
+                      Tab(text: 'Verifiled'),
+                      Tab(text: 'List'),
+                    ],
+                  ),
+                ),
+              )),
+          Expanded(
+              child: TabBarView(controller: _tabController, children: const [
+            SizedBox(),
+            SizedBox(),
+            SizedBox(),
+            SizedBox(),
+          ]))
         ],
       ),
     );

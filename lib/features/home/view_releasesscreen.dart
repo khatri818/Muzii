@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/app_colors.dart';
 import 'package:flutter_application_1/constant/image_resource.dart';
+import 'package:flutter_application_1/features/home/tabbarview.dart';
 
 class ViewReleasesScreen extends StatefulWidget {
   const ViewReleasesScreen({super.key});
@@ -13,26 +14,49 @@ class _ViewReleasesScreenState extends State<ViewReleasesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: AppColors.white,
-        title: Image.asset(
-          ImageResource.muziiLogo,
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Image.asset(
+                ImageResource.muziiLogo,
+              ),
+              const Expanded(child: TabBarViewData()),
+            ],
+          ),
         ),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Image.asset(
-              ImageResource.image2,
-              width: MediaQuery.of(context).size.width,
-            )
-          ],
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: AppColors.orange,
+          onPressed: () {},
+          tooltip: "Increment",
+          child: const Icon(Icons.add),
         ),
-      ),
-    );
+        bottomNavigationBar: BottomAppBar(
+          color: AppColors.black,
+          shape: const CircularNotchedRectangle(),
+          notchMargin: 6,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.my_library_music),
+                color: AppColors.orange,
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.person),
+                color: AppColors.orange,
+              ),
+            ],
+          ),
+        )
+        // BottomNavigationBar(items: const [
+        //   BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+        //   BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+        // ]),
+        );
   }
 }
