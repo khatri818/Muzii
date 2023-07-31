@@ -3,6 +3,7 @@ import 'package:flutter_application_1/common/app_colors.dart';
 import 'package:flutter_application_1/common/app_style.dart';
 import 'package:flutter_application_1/common/style.dart';
 import 'package:flutter_application_1/constant/image_resource.dart';
+import 'package:flutter_application_1/features/home/widgets/drafts_screen.dart';
 
 class TabBarViewData extends StatefulWidget {
   const TabBarViewData({super.key});
@@ -71,7 +72,7 @@ class _TabBarViewDataState extends State<TabBarViewData>
               )),
           Expanded(
               child: TabBarView(controller: _tabController, children: const [
-            SizedBox(),
+            DraftsScreen(),
             SizedBox(),
             SizedBox(),
             SizedBox(),

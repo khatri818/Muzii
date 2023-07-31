@@ -42,7 +42,7 @@ class _ViewReleasesScreenState extends State<ViewReleasesScreen> {
             children: [
               IconButton(
                 onPressed: () {},
-                icon: Icon(Icons.my_library_music),
+                icon: Icon(Icons.music_note),
                 color: AppColors.orange,
               ),
               IconButton(
@@ -52,11 +52,6 @@ class _ViewReleasesScreenState extends State<ViewReleasesScreen> {
               ),
             ],
           ),
-        )
-        // BottomNavigationBar(items: const [
-        //   BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-        //   BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-        // ]),
-        );
+        ));
   }
 }
