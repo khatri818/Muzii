@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/app_colors.dart';
 import 'package:flutter_application_1/constant/image_resource.dart';
+import 'package:flutter_application_1/features/home/add_release_screen.dart';
 import 'package:flutter_application_1/features/home/tabbarview.dart';
 
 class ViewReleasesScreen extends StatefulWidget {
@@ -29,7 +30,13 @@ class _ViewReleasesScreenState extends State<ViewReleasesScreen> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
           backgroundColor: AppColors.orange,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const AddReleaseScreen(),
+              ),
+            );
+          },
           tooltip: "Increment",
           child: const Icon(Icons.add),
         ),
@@ -42,12 +49,12 @@ class _ViewReleasesScreenState extends State<ViewReleasesScreen> {
             children: [
               IconButton(
                 onPressed: () {},
-                icon: Icon(Icons.music_note),
+                icon: const Icon(Icons.music_note),
                 color: AppColors.orange,
               ),
               IconButton(
                 onPressed: () {},
-                icon: Icon(Icons.person),
+                icon: const Icon(Icons.person),
                 color: AppColors.orange,
               ),
             ],

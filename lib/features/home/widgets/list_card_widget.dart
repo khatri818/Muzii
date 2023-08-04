@@ -11,19 +11,28 @@ class ListViewCardWidget extends StatefulWidget {
 class _ListViewCardWidgetState extends State<ListViewCardWidget> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: 10,
-        itemBuilder: (_, index) {
-          return ListTile(
-            title: Text(
-              "Ehsan Tera Hoga Mujh Par",
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            subtitle: Text("Jonita Gandhi ft. Keba Jeremiah",style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
-            leading: Image.asset(
-              ImageResource.image2,
-            ),
-          );
-        });
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListView.builder(
+          itemCount: 10,
+          itemBuilder: (_, index) {
+            return Card(
+              elevation: 02,
+              child: ListTile(
+                title: const Text(
+                  "Ehsan Tera Hoga Mujh Par",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                subtitle: const Text(
+                  "Jonita Gandhi ft. Keba Jeremiah",
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                ),
+                leading: Image.asset(
+                  ImageResource.image2,
+                ),
+              ),
+            );
+          }),
+    );
   }
 }

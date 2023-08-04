@@ -25,10 +25,9 @@ class AuthModel with ChangeNotifier {
       final res = await http.post('$KBASE_URL/login' as Uri,
           headers: {'Content-Type': 'application/json'},
           body: json.encode(loginData));
-
+      print('Response : $res');
       final statusCode = res.statusCode;
       final decodedRes = json.decode(res.body);
-
       if (statusCode >= 400) {
         throw HttpException(decodedRes['error_message']);
       }
@@ -44,7 +43,7 @@ class AuthModel with ChangeNotifier {
   //signup start
   Future<void> signup(Map<String, String> signupData) async {
     try {
-      final res = await http.post('$KBASE_URL/signup' as Uri,
+      final res = await http.post('$KBASE_URL/adminSignUp' as Uri,
           headers: {'Content-Type': 'application/json'},
           body: json.encode(signupData));
 
@@ -65,19 +64,18 @@ class AuthModel with ChangeNotifier {
 
   Future<void> setDataToLocalStorageLogin(
       Map<String, dynamic> decodedRes) async {
-    userId = decodedRes['userID'].toString();
-
-    phoneCountryCode = decodedRes['phoneCountryCode'];
-    phoneNumber = decodedRes['phoneNumber'];
-    token = decodedRes['token'];
+    phoneNumber = decodedRes['phoneNo'];
+    // userId = decodedRes['userID'].toString();
+    // phoneCountryCode = decodedRes['phoneCountryCode'];
+    //  token = decodedRes['token'];
     notifyListeners();
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final String userData = json.encode({
-      'userId': userId,
-      'phoneCountryCode': phoneCountryCode,
-      'phoneNumber': phoneNumber,
-      'token': token,
+      'phoneNo': phoneNumber,
+      // 'userId': userId,
+      // 'phoneCountryCode': phoneCountryCode,
+      //  'token': token,
     });
 
     prefs.setString('userData', userData);
@@ -89,7 +87,7 @@ class AuthModel with ChangeNotifier {
 
     phoneCountryCode = decodedRes['phoneCountryCode'];
     phoneNumber = decodedRes['phoneNumber'];
-   
+
     notifyListeners();
 
     SharedPreferences prefs = await SharedPreferences.getInstance();

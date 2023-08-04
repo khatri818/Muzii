@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/style.dart';
-import 'package:flutter_application_1/features/auth/register.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
@@ -16,6 +15,7 @@ import '../../common/app_colors.dart';
 import '../../common/app_style.dart';
 import '../../common/commonButton.dart';
 import '../../models/auth_model.dart';
+import '../home/view_releasesscreen.dart';
 import '../services/auth_service.dart';
 
 class LoginOTPScreen extends StatefulWidget {
@@ -114,7 +114,7 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
                     ),
                     initialCountryCode: 'IN',
                     onCountryChanged: (country) {
-                    //  FocusScope.of(context).requestFocus(FocusNode());
+                      //  FocusScope.of(context).requestFocus(FocusNode());
                       if (kDebugMode) {
                         print('Country changed to: ${country.name}');
                       }
@@ -180,11 +180,10 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
                       // ignore: use_build_context_synchronously
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const RegisterScreen(),
+                          builder: (context) => const ViewReleasesScreen(),
                         ),
                       );
-                    }
-                    ),
+                    }),
               ],
             ),
           ),

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/auth/login_screen.dart';
-import 'package:intl_phone_field/countries.dart';
+import 'package:intl/intl.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 
@@ -36,8 +36,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   String genderdrop = '';
   String countrydrop = '';
+  final DateTime _dateTime = DateTime.now();
+
+  void _showDatePicker() {
+    showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2025));
+  }
 
   @override
+  void initState() {
+    dobController.text = '';
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -164,6 +178,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
                       return null;
                     },
+                    suffix: IconButton(
+                        color: AppColors.orange,
+                        iconSize: 25,
+                        onPressed: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2000),
+                              lastDate: DateTime(2101));
+                          if (pickedDate != null) {
+                            if (kDebugMode) {
+                              print(pickedDate);
+                            }
+                            String formattedDate =
+                                DateFormat('dd-MM-yyyy').format(pickedDate);
+                            if (kDebugMode) {
+                              print(formattedDate);
+                            }
+
+                            setState(() {
+                              dobController.text = formattedDate;
+                            });
+                          } else {
+                            if (kDebugMode) {
+                              print("Date is not selected");
+                            }
+                          }
+                        },
+                        icon: const Icon(Icons.calendar_month)),
                     hintText: 'Date Of Birth (DD/MM/YYYY)',
                   ),
                   Styles.sizedBoxH50,

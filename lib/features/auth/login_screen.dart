@@ -1,11 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/app_style.dart';
 import 'package:flutter_application_1/common/commonButton.dart';
 import 'package:flutter_application_1/features/auth/Login_otp_screen.dart';
-import 'package:flutter_application_1/features/home/tabbarview.dart';
+import 'package:flutter_application_1/features/auth/register.dart';
 import 'package:flutter_application_1/features/services/auth_service.dart';
+import 'package:flutter_application_1/models/auth_model.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:provider/provider.dart';
 
 import '../../common/app_colors.dart';
 import '../../common/style.dart';
@@ -56,12 +60,19 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 30,
                 ),
-                const Text(
-                  "Login/Signup",
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black),
+                InkWell(
+                  onTap: () async {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const RegisterScreen(),
+                    ));
+                  },
+                  child: const Text(
+                    "Login/Register",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black),
+                  ),
                 ),
                 Styles.sizedBoxH50,
                 IntlPhoneField(
@@ -94,35 +105,28 @@ class _LoginPageState extends State<LoginPage> {
                   height: 50,
                 ),
                 CommonButton(
-                  label: "Continue",
-                  //   authClass.signInwithPhoneNumber(
-                  // verificationIdFinal, smsCode, context);
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const ViewReleasesScreen(),
-                      ),
-                    );
-                  },
-                  // onPressed: () {
-                  // //  FocusScope.of(context).requestFocus(FocusNode());
-                  //   (phone) async {
-                  //     if (kDebugMode) {
-                  //       print(phone.completeNumber);
-                  //     }
-                  //     //   await authClass.verifyPhoneNumber(
-                  //     //       "+91 ${phoneController.text}", context, setData);
-                  //     // };}
-                  //   };
-                  //   Navigator.of(context).push(
-                  //     MaterialPageRoute(
-                  //       builder: (context) => LoginOTPScreen(
-                  //         phone: phoneController.text,
-                  //       ),
-                  //     ),
-                  //   );
-                  // }
-                ),
+                    label: "Continue",
+                    onPressed: () {
+                      //  FocusScope.of(context).requestFocus(FocusNode());
+                      (phone) async {
+                        if (kDebugMode) {
+                          print(phone.completeNumber);
+                        }
+                        final response =
+                            await Provider.of<AuthModel>(context, listen: false)
+                                .login({"phoneNumber": phoneController.text});
+                        // await authClass.verifyPhoneNumber(
+                        //     "+91${phoneController.text}", context, setData);
+                      };
+
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => LoginOTPScreen(
+                            phone: phoneController.text,
+                          ),
+                        ),
+                      );
+                    }),
                 const SizedBox(
                   height: 210,
                 ),
