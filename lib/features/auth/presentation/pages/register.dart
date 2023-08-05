@@ -1,17 +1,18 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/features/auth/login_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 
-import '../../common/TextField.dart';
-import '../../common/app_colors.dart';
-import '../../common/app_style.dart';
-import '../../common/commonButton.dart';
-import '../../common/common_textformfield_dropdown.dart';
-import '../../common/style.dart';
-import '../../models/auth_model.dart';
+import '../../../../common/TextField.dart';
+import '../../../../common/app_colors.dart';
+import '../../../../common/app_style.dart';
+import '../../../../common/commonButton.dart';
+import '../../../../common/common_textformfield_dropdown.dart';
+import '../../../../common/style.dart';
+import '../../../../models/auth_model.dart';
+import 'login_screen.dart';
+
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

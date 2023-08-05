@@ -101,4 +101,5 @@ class AuthModel with ChangeNotifier {
 
     prefs.setString('userData', userData);
   }
-}
+
+ }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/app_colors.dart';
 import 'package:flutter_application_1/common/style.dart';
-import 'package:flutter_application_1/features/home/widgets/card_widget.dart';
-import 'package:flutter_application_1/features/home/widgets/list_card_widget.dart';
+
+import 'card_widget.dart';
+import 'list_card_widget.dart';
 
 class DraftsScreen extends StatefulWidget {
   const DraftsScreen({super.key});
@@ -68,7 +69,7 @@ class _DraftsScreenState extends State<DraftsScreen>
           ),
           Expanded(
               child: TabBarView(controller: _tabController, children: [
-            ListViewCardWidget(),
+            const ListViewCardWidget(),
             CardList(),
           ]))
         ],

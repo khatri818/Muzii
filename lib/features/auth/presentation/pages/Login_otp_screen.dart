@@ -1,3 +1,4 @@
+
 import 'dart:async';
 import 'dart:io';
 
@@ -11,12 +12,13 @@ import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:provider/provider.dart';
 
-import '../../common/app_colors.dart';
-import '../../common/app_style.dart';
-import '../../common/commonButton.dart';
-import '../../models/auth_model.dart';
-import '../home/view_releasesscreen.dart';
-import '../services/auth_service.dart';
+import '../../../../common/app_colors.dart';
+import '../../../../common/app_style.dart';
+import '../../../../common/commonButton.dart';
+import '../../../../models/auth_model.dart';
+import '../../../home/presentation/pages/view_releasesscreen.dart';
+import '../../../services/auth_service.dart';
+
 
 class LoginOTPScreen extends StatefulWidget {
   final String phone;
@@ -114,7 +116,8 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
                     ),
                     initialCountryCode: 'IN',
                     onCountryChanged: (country) {
-                      //  FocusScope.of(context).requestFocus(FocusNode());
+                      FocusScope.of(context).unfocus();
+
                       if (kDebugMode) {
                         print('Country changed to: ${country.name}');
                       }

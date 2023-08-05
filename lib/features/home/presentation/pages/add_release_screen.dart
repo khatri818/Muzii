@@ -3,9 +3,9 @@ import 'package:flutter_application_1/common/app_colors.dart';
 import 'package:flutter_application_1/common/app_style.dart';
 import 'package:flutter_application_1/common/style.dart';
 
-import '../../common/TextField.dart';
-import '../../common/commonButton.dart';
-import '../../common/common_textformfield_dropdown.dart';
+import '../../../../common/TextField.dart';
+import '../../../../common/commonButton.dart';
+import '../../../../common/common_textformfield_dropdown.dart';
 
 class AddReleaseScreen extends StatefulWidget {
   const AddReleaseScreen({super.key});

@@ -4,16 +4,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/app_style.dart';
 import 'package:flutter_application_1/common/commonButton.dart';
-import 'package:flutter_application_1/features/auth/Login_otp_screen.dart';
-import 'package:flutter_application_1/features/auth/register.dart';
+import 'package:flutter_application_1/features/auth/presentation/pages/Login_otp_screen.dart';
+import 'package:flutter_application_1/features/auth/presentation/pages/register.dart';
 import 'package:flutter_application_1/features/services/auth_service.dart';
 import 'package:flutter_application_1/models/auth_model.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 
-import '../../common/app_colors.dart';
-import '../../common/style.dart';
-import '../home/view_releasesscreen.dart';
+import '../../../../common/app_colors.dart';
+import '../../../../common/style.dart';
+
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

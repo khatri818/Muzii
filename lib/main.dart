@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'features/auth/login_screen.dart';
+import 'features/auth/presentation/pages/login_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
