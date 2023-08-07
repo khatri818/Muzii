@@ -14,8 +14,6 @@ import 'package:provider/provider.dart';
 import '../../../../common/app_colors.dart';
 import '../../../../common/style.dart';
 
-
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -109,16 +107,16 @@ class _LoginPageState extends State<LoginPage> {
                     label: "Continue",
                     onPressed: () {
                       //  FocusScope.of(context).requestFocus(FocusNode());
-                      (phone) async {
-                        if (kDebugMode) {
-                          print(phone.completeNumber);
-                        }
-                        final response =
-                            await Provider.of<AuthModel>(context, listen: false)
-                                .login({"phoneNumber": phoneController.text});
+                      // (phone) async {
+                      //   if (kDebugMode) {
+                      //     print(phone.completeNumber);
+                      //   }
+                      //   final response =
+                      //       await Provider.of<AuthModel>(context, listen: false)
+                      //           .login({"phoneNumber": phoneController.text});
                         // await authClass.verifyPhoneNumber(
                         //     "+91${phoneController.text}", context, setData);
-                      };
+                    //  };
 
                       Navigator.of(context).push(
                         MaterialPageRoute(

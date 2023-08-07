@@ -22,7 +22,7 @@ class AuthModel with ChangeNotifier {
   //Loging user in
   Future<void> login(Map<String, String> loginData) async {
     try {
-      final res = await http.post('$KBASE_URL/login' as Uri,
+      final res = await http.post('$KBASE_URL_user/login' as Uri,
           headers: {'Content-Type': 'application/json'},
           body: json.encode(loginData));
       print('Response : $res');
@@ -65,16 +65,18 @@ class AuthModel with ChangeNotifier {
   Future<void> setDataToLocalStorageLogin(
       Map<String, dynamic> decodedRes) async {
     phoneNumber = decodedRes['phoneNo'];
+    phoneCountryCode = decodedRes['phoneCountryCode'];
     // userId = decodedRes['userID'].toString();
-    // phoneCountryCode = decodedRes['phoneCountryCode'];
+    //
     //  token = decodedRes['token'];
     notifyListeners();
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final String userData = json.encode({
       'phoneNo': phoneNumber,
+      'phoneCountryCode': phoneCountryCode,
       // 'userId': userId,
-      // 'phoneCountryCode': phoneCountryCode,
+      //
       //  'token': token,
     });
 
@@ -101,5 +103,4 @@ class AuthModel with ChangeNotifier {
 
     prefs.setString('userData', userData);
   }
-
- }
+}

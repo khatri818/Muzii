@@ -1,7 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/app_colors.dart';
 import 'package:flutter_application_1/common/app_style.dart';
 import 'package:flutter_application_1/common/style.dart';
+import 'package:flutter_application_1/features/home/presentation/pages/add_release_screen2.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../common/TextField.dart';
 import '../../../../common/commonButton.dart';
@@ -33,7 +36,7 @@ class _AddReleaseScreenState extends State<AddReleaseScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text(
-          'Add Release',
+          'Add Release - Step 1/3',
           style: TextStyle(
               fontSize: 18, fontWeight: FontWeight.w700, color: Colors.black),
         ),
@@ -90,14 +93,6 @@ class _AddReleaseScreenState extends State<AddReleaseScreen> {
               Styles.sizedBoxH10,
               CommonTextFormField(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                suffix: IconButton(
-                  icon: const Icon(
-                    Icons.calendar_month,
-                    color: AppColors.orange,
-                    size: 30,
-                  ),
-                  onPressed: () {},
-                ),
                 controller: dobController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -105,6 +100,35 @@ class _AddReleaseScreenState extends State<AddReleaseScreen> {
                   }
                   return null;
                 },
+                suffix: IconButton(
+                    color: AppColors.orange,
+                    iconSize: 25,
+                    onPressed: () async {
+                      DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(2000),
+                          lastDate: DateTime(2101));
+                      if (pickedDate != null) {
+                        if (kDebugMode) {
+                          print(pickedDate);
+                        }
+                        String formattedDate =
+                            DateFormat('dd-MM-yyyy').format(pickedDate);
+                        if (kDebugMode) {
+                          print(formattedDate);
+                        }
+
+                        setState(() {
+                          dobController.text = formattedDate;
+                        });
+                      } else {
+                        if (kDebugMode) {
+                          print("Date is not selected");
+                        }
+                      }
+                    },
+                    icon: const Icon(Icons.calendar_month)),
                 hintText: 'DD/MM/YYYY',
               ),
               Styles.sizedBoxH10,
@@ -255,7 +279,13 @@ class _AddReleaseScreenState extends State<AddReleaseScreen> {
               Styles.sizedBoxH10,
               CommonButton(
                 label: "Next Step",
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const AddReleaseStep2(),
+                    ),
+                  );
+                },
               ),
             ],
           ),

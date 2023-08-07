@@ -175,10 +175,10 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
                 CommonButton(
                     label: "Submit OTP",
                     onPressed: () async {
-                      await authClass.signInwithPhoneNumber(
-                          verificationIdFinal, smsCode, context);
-                      //  _httpsCall();
-                      _loginHandler();
+                      // await authClass.signInwithPhoneNumber(
+                      //     verificationIdFinal, smsCode, context);
+                      // //  _httpsCall();
+                      // _loginHandler();
                       //    login();
                       // ignore: use_build_context_synchronously
                       Navigator.of(context).push(
