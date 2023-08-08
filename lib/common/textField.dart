@@ -6,7 +6,6 @@ import 'package:flutter_application_1/common/style.dart';
 
 import 'app_colors.dart';
 
-
 class CommonTextFormField extends StatelessWidget {
   const CommonTextFormField({
     Key? key,
@@ -37,7 +36,6 @@ class CommonTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return TextFormField(
       controller: controller,
       onChanged: onChanged,
@@ -56,8 +54,8 @@ class CommonTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         filled: true,
         errorText: errorText,
-        fillColor: AppColors.grey.withOpacity(0.1),
-        focusColor: AppColors.grey.withOpacity(0.1),
+        fillColor: AppColors.grey.withOpacity(0.2),
+        focusColor: AppColors.grey.withOpacity(0.2),
         errorStyle: const TextStyle(color: AppColors.red),
         errorBorder: Styles.outlineInputBorderNone,
         enabledBorder: Styles.outlineInputBorderNone,

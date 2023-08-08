@@ -12,11 +12,11 @@ class CommonButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         padding: const EdgeInsets.all(20.0),
-        margin: const EdgeInsets.symmetric(horizontal: 20.0),
+        // margin: const EdgeInsets.symmetric(horizontal: 20.0),
         width: double.infinity,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(15.0),
           color: Theme.of(context).hintColor,
         ),
         child: Text(

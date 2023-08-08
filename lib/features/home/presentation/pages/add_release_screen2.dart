@@ -1,12 +1,9 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/features/home/presentation/pages/add_release_screen.dart';
-
+import 'package:flutter_application_1/features/home/presentation/widget/addnew_artist.dart';
 import '../../../../common/TextField.dart';
-import '../../../../common/app_colors.dart';
 import '../../../../common/app_style.dart';
 import '../../../../common/commonButton.dart';
-import '../../../../common/common_textformfield_dropdown.dart';
 import '../../../../common/style.dart';
 
 class AddReleaseStep2 extends StatefulWidget {
@@ -23,6 +20,27 @@ class _AddReleaseStep2State extends State<AddReleaseStep2> {
   TextEditingController composerController = TextEditingController();
   String genredrop = '';
   final genre = <String>['A', 'B', "C"];
+
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const AlertDialog(
+          title: Center(
+            child: Text(
+              'Add New Artist',
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.black),
+            ),
+          ),
+          content: AddNewArtist(),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,13 +83,7 @@ class _AddReleaseStep2State extends State<AddReleaseStep2> {
                 },
               ),
               TextButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const MyWidget(),
-                      ),
-                    );
-                  },
+                  onPressed: _showDialog,
                   child: Text(
                     "+Add New",
                     style: Appstyle.text1,
@@ -153,18 +165,6 @@ class _AddReleaseStep2State extends State<AddReleaseStep2> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const AlertDialog(
-      backgroundColor: Colors.amber,
-      content: AddReleaseScreen(),
     );
   }
 }
