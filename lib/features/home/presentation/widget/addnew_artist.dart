@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/common/app_colors.dart';
 import 'package:flutter_application_1/constant/image_resource.dart';
 
 import '../../../../common/TextField.dart';
 import '../../../../common/app_style.dart';
 import '../../../../common/commonButton.dart';
 import '../../../../common/style.dart';
-import 'filterbutton.dart';
 
 class AddNewArtist extends StatefulWidget {
   const AddNewArtist({super.key});
@@ -50,12 +48,6 @@ class _AddNewArtistState extends State<AddNewArtist> {
             Text(
               "Artist Name",
               style: Appstyle.text1,
-            ),
-            Row(
-              children: [
-                const FilterButton('All Orders'),
-                const FilterButton('Pending'),
-              ],
             ),
             Styles.sizedBoxH06,
             CommonTextFormField(

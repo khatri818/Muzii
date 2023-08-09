@@ -1,6 +1,7 @@
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/common/app_colors.dart';
 import 'package:flutter_application_1/features/home/presentation/widget/addnew_artist.dart';
+import 'package:flutter_application_1/features/home/presentation/widget/filter_chip.dart';
 import '../../../../common/TextField.dart';
 import '../../../../common/app_style.dart';
 import '../../../../common/commonButton.dart';
@@ -20,6 +21,41 @@ class _AddReleaseStep2State extends State<AddReleaseStep2> {
   TextEditingController composerController = TextEditingController();
   String genredrop = '';
   final genre = <String>['A', 'B', "C"];
+  List<String> allItems = [
+    'Tan',
+    'Tanmay S.',
+    'Tanish',
+    'Tanya',
+    'Eva',
+    'Frank',
+    'Grace',
+    'Henry',
+    'Isabel',
+    'Jack',
+  ];
+  List<String> itemlist = [];
+  List<String> filterChips = [];
+
+  void _addFilterChip(String chipLabel) {
+    if (filterChips.length <= 2) {
+      setState(() {
+        filterChips.add(chipLabel);
+      });
+    } else {
+      showSnackBar(context, "Can't add more then 3 Primary Artist");
+    }
+  }
+
+  void showSnackBar(BuildContext context, String text) {
+    final snackBar = SnackBar(content: Text(text));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  void _removeFilterChip(String chipLabel) {
+    setState(() {
+      filterChips.remove(chipLabel);
+    });
+  }
 
   void _showDialog() {
     showDialog(
@@ -55,9 +91,9 @@ class _AddReleaseStep2State extends State<AddReleaseStep2> {
           color: Colors.black,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,19 +104,10 @@ class _AddReleaseStep2State extends State<AddReleaseStep2> {
                 style: Appstyle.text1,
               ),
               Styles.sizedBoxH10,
-
-              DropdownSearch(
-                items: ["Brazil", "France", "Tunisia", "Canada"],
-                onChanged: print,
-                selectedItem: "Tunisia",
-                validator: (String? item) {
-                  if (item == null)
-                    return "Required field";
-                  else if (item == "Brazil")
-                    return "Invalid item";
-                  else
-                    return null;
-                },
+              FilterChipWidget(
+                hinttext: 'Primary Artist',
+                errmsg: 'Please enter Primary Artist',
+                listdata: allItems,
               ),
               TextButton(
                   onPressed: _showDialog,
@@ -88,40 +115,32 @@ class _AddReleaseStep2State extends State<AddReleaseStep2> {
                     "+Add New",
                     style: Appstyle.text1,
                   )),
-
-              // DropdownSearch<String>(
-              //   popupProps: PopupProps.menu(
-              //     showSelectedItems: true,
-              //     disabledItemFn: (String s) => s.startsWith('I'),
-              //   ),
-              //   items: ["Brazil", "Italia (Disabled)", "Tunisia", 'Canada'],
-              //   dropdownDecoratorProps: DropDownDecoratorProps(
-              //     dropdownSearchDecoration: InputDecoration(
-              //       labelText: "Menu mode",
-              //       hintText: "country in menu mode",
-              //     ),
-              //   ),
-              //   onChanged: print,
-              //   selectedItem: "Brazil",
-              // ),
-
               Styles.sizedBoxH10,
               Text(
                 "Featuring Artist",
                 style: Appstyle.text1,
               ),
               Styles.sizedBoxH10,
-              CommonTextFormField(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                controller: featuringartistController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter Featuring Artist';
-                  }
-                  return null;
-                },
-                hintText: 'Featuring Artist Name',
+              FilterChipWidget(
+                hinttext: 'Featuring Artist',
+                errmsg: 'Please enter Featuring Artist',
+                listdata: allItems,
               ),
+              // CommonTextFormField(
+              //   autovalidateMode: AutovalidateMode.onUserInteraction,
+              //   controller: featuringartistController,
+              //   validator: (value) {
+              //     if (value == null || value.isEmpty) {
+              //       return 'Please enter Featuring Artist';
+              //     }
+              //     return null;
+              //   },
+              //   hintText: 'Featuring Artist Name',
+              //   onChanged: (value) {
+              //     searchList(value);
+              //   },
+              // ),
+
               Styles.sizedBoxH10,
               Text(
                 "Lyricist",
@@ -156,10 +175,16 @@ class _AddReleaseStep2State extends State<AddReleaseStep2> {
                 },
                 hintText: 'Composer Name',
               ),
-              Styles.sizedBoxH10,
+              Styles.sizedBoxH20,
               CommonButton(
                 label: "Next Step",
-                onPressed: () {},
+                onPressed: () {
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(
+                  //     builder: (context) => FilterChipDemo(),
+                  //   ),
+                  // );
+                },
               ),
             ],
           ),
@@ -167,4 +192,28 @@ class _AddReleaseStep2State extends State<AddReleaseStep2> {
       ),
     );
   }
+
+  void searchList(String query) {
+    final suggestions = allItems.where((element) {
+      final listTile = element.toLowerCase();
+      final input = query.toLowerCase();
+      return listTile.contains(input);
+    }).toList();
+    setState(() {
+      itemlist = suggestions;
+    });
+  }
 }
+
+List<String> allItems = [
+  'Tan',
+  'Tanmay S.',
+  'Tanish',
+  'Tanya',
+  'Eva',
+  'Frank',
+  'Grace',
+  'Henry',
+  'Isabel',
+  'Jack',
+];
