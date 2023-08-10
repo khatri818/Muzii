@@ -3,41 +3,60 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/app_colors.dart';
 import 'package:flutter_application_1/common/app_style.dart';
 import 'package:flutter_application_1/common/style.dart';
-import 'package:flutter_application_1/features/home/presentation/pages/review_song.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../common/TextField.dart';
 import '../../../../common/commonButton.dart';
 import '../../../../common/common_textformfield_dropdown.dart';
+import '../../../../constant/image_resource.dart';
 import 'add_release_screen2/add_release_screens2.dart';
 
-class AddReleaseScreen extends StatefulWidget {
-  const AddReleaseScreen({super.key});
+class ReviewYourSong extends StatefulWidget {
+  const ReviewYourSong({super.key});
 
   @override
-  State<AddReleaseScreen> createState() => _AddReleaseScreenState();
+  State<ReviewYourSong> createState() => _ReviewYourSongState();
 }
 
-class _AddReleaseScreenState extends State<AddReleaseScreen> {
+class _ReviewYourSongState extends State<ReviewYourSong> {
   TextEditingController songnameController = TextEditingController();
   TextEditingController labelnameController = TextEditingController();
-  TextEditingController dobController = TextEditingController();
+  TextEditingController releasedateController = TextEditingController();
   TextEditingController languageController = TextEditingController();
   String genredrop = '';
   String subgenredrop = '';
-  String mooddrop = '';
+
   final genre = <String>['A', 'B', "C"];
   final subgenre = <String>['A', 'B', "C"];
-  final mood = <String>['A', 'B', "C"];
+
+  // ignore: unused_field
   final List<String> _options = ['Yes', 'No'];
-  String _selectedValue = '';
+  // ignore: unused_field
+  final String _selectedValue = '';
+
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Image.asset(ImageResource.image5),
+          content: const Text(
+            'Song Uploaded Successfully',
+            style: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.w700, color: Colors.black),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text(
-          'Add Release - Step 1/3',
+          'Review Your Song',
           style: TextStyle(
               fontSize: 18, fontWeight: FontWeight.w700, color: Colors.black),
         ),
@@ -67,7 +86,7 @@ class _AddReleaseScreenState extends State<AddReleaseScreen> {
                   }
                   return null;
                 },
-                hintText: 'Your Song Name',
+                hintText: 'Calm Before The Storm',
               ),
               Styles.sizedBoxH10,
               Text(
@@ -94,7 +113,7 @@ class _AddReleaseScreenState extends State<AddReleaseScreen> {
               Styles.sizedBoxH10,
               CommonTextFormField(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                controller: dobController,
+                controller: releasedateController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter D.O.B';
@@ -121,7 +140,7 @@ class _AddReleaseScreenState extends State<AddReleaseScreen> {
                         }
 
                         setState(() {
-                          dobController.text = formattedDate;
+                          releasedateController.text = formattedDate;
                         });
                       } else {
                         if (kDebugMode) {
@@ -181,113 +200,10 @@ class _AddReleaseScreenState extends State<AddReleaseScreen> {
                 validator: null,
                 controller: null,
               ),
-              Styles.sizedBoxH10,
-              Text(
-                "Mood",
-                style: Appstyle.text1,
-              ),
-              Styles.sizedBoxH10,
-              CustomDropdown(
-                hintText: 'Select',
-                dropdownValue: 'Enter Mood Of Your Song',
-                onChange: (value) {
-                  mooddrop = value!;
-                },
-                options: mood,
-                validator: null,
-                controller: null,
-              ),
-              Styles.sizedBoxH10,
-              Row(
-                children: [
-                  Text(
-                    "Explicit",
-                    style: Appstyle.text1,
-                  ),
-                  Styles.sizedBoxW10,
-                  const Icon(
-                    Icons.info_outline,
-                    color: AppColors.black,
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: _options
-                    .map(
-                      (option) => Row(
-                        children: [
-                          Radio(
-                            value: option,
-                            groupValue: _selectedValue,
-                            fillColor: MaterialStateColor.resolveWith(
-                                (states) => AppColors.black),
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedValue = value!;
-                              });
-                            },
-                          ),
-                          Text(
-                            option,
-                            style: Appstyle.text1,
-                          ),
-                        ],
-                      ),
-                    )
-                    .toList(),
-              ),
-              Styles.sizedBoxH10,
-              Row(
-                children: [
-                  Text(
-                    "YouTube Content ID",
-                    style: Appstyle.text1,
-                  ),
-                  Styles.sizedBoxW10,
-                  const Icon(
-                    Icons.info_outline,
-                    color: AppColors.black,
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: _options
-                    .map(
-                      (option) => Row(
-                        children: [
-                          Radio(
-                            value: option,
-                            groupValue: _selectedValue,
-                            fillColor: MaterialStateColor.resolveWith(
-                                (states) => AppColors.black),
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedValue = value!;
-                              });
-                            },
-                          ),
-                          Text(
-                            option,
-                            style: Appstyle.text1,
-                          ),
-                        ],
-                      ),
-                    )
-                    .toList(),
-              ),
-              Styles.sizedBoxH10,
+              Styles.sizedBoxH50,
               CommonButton(
-                label: "Next Step",
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => const ReviewYourSong()
-                        //AddReleaseSteps2(),
-                        ),
-                  );
-                },
+                label: "Submit",
+                onPressed: _showDialog,
               ),
             ],
           ),

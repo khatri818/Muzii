@@ -3,36 +3,36 @@ import 'package:flutter/material.dart';
 import '../../../../common/TextField.dart';
 import '../../../../common/app_colors.dart';
 
-class FilterChipWidget extends StatefulWidget {
+class FilterChipWidgets extends StatefulWidget {
   final String hinttext;
   final String errmsg;
   final List<String> listdata;
-  final void adddata;
-  const FilterChipWidget({
+  final void Function(String chipLabel) adddata;
+  const FilterChipWidgets({
     super.key,
     required this.hinttext,
     required this.errmsg,
     required this.listdata,
-    this.adddata,
+    required this.adddata,
   });
 
   @override
-  State<FilterChipWidget> createState() => _FilterChipWidgetState();
+  State<FilterChipWidgets> createState() => _FilterChipWidgetsState();
 }
 
-class _FilterChipWidgetState extends State<FilterChipWidget> {
+class _FilterChipWidgetsState extends State<FilterChipWidgets> {
   List<String> itemlist = [];
   List<String> filterChips = [];
 
-  void _addFilterChip(String chipLabel) {
-    if (filterChips.length <= 2) {
-      setState(() {
-        filterChips.add(chipLabel);
-      });
-    } else {
-      showSnackBar(context, "Can't add more then 3 Primary Artist");
-    }
-  }
+  // void _addFilterChip(String chipLabel) {
+  //   if (filterChips.length <= 2) {
+  //     setState(() {
+  //       filterChips.add(chipLabel);
+  //     });
+  //   } else {
+  //     showSnackBar(context, "Can't add more then 3 Primary Artist");
+  //   }
+  // }
 
   void showSnackBar(BuildContext context, String text) {
     final snackBar = SnackBar(content: Text(text));
@@ -99,7 +99,7 @@ class _FilterChipWidgetState extends State<FilterChipWidget> {
                     return ListTile(
                       title: Text(item),
                       onTap: () {
-                        _addFilterChip(item);
+                        widget.adddata(item);
                         setState(() {
                           itemlist = [];
                           primaryartistController.clear();

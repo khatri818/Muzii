@@ -114,9 +114,9 @@ class _LoginPageState extends State<LoginPage> {
                       //   final response =
                       //       await Provider.of<AuthModel>(context, listen: false)
                       //           .login({"phoneNumber": phoneController.text});
-                        // await authClass.verifyPhoneNumber(
-                        //     "+91${phoneController.text}", context, setData);
-                    //  };
+                      // await authClass.verifyPhoneNumber(
+                      //     "+91${phoneController.text}", context, setData);
+                      //  };
 
                       Navigator.of(context).push(
                         MaterialPageRoute(
