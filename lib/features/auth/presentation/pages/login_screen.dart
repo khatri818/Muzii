@@ -6,6 +6,7 @@ import 'package:flutter_application_1/common/app_style.dart';
 import 'package:flutter_application_1/common/commonButton.dart';
 import 'package:flutter_application_1/features/auth/presentation/pages/Login_otp_screen.dart';
 import 'package:flutter_application_1/features/auth/presentation/pages/register.dart';
+import 'package:flutter_application_1/features/home/presentation/pages/add_release_screen2/add_release_coverart.dart';
 import 'package:flutter_application_1/features/services/auth_service.dart';
 import 'package:flutter_application_1/models/auth_model.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -119,11 +120,11 @@ class _LoginPageState extends State<LoginPage> {
                       //  };
 
                       Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => LoginOTPScreen(
-                            phone: phoneController.text,
-                          ),
-                        ),
+                        MaterialPageRoute(builder: (context) => CoverArtPage()
+                            // LoginOTPScreen(
+                            //   phone: phoneController.text,
+                            // ),
+                            ),
                       );
                     }),
                 const SizedBox(

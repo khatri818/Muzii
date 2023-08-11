@@ -1,5 +1,6 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/common/app_style.dart';
 
 class CommonButton extends StatelessWidget {
   final String? label;
@@ -22,6 +23,42 @@ class CommonButton extends StatelessWidget {
         child: Text(
           label!,
           style: Theme.of(context).textTheme.titleLarge,
+        ),
+      ),
+    );
+  }
+}
+
+class CommonButton1 extends StatelessWidget {
+  final String? label;
+  final void Function() onPressed;
+
+  const CommonButton1(
+      {super.key, required this.label, required this.onPressed});
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: DecoratedBox(
+        decoration: ShapeDecoration(
+          shape: RoundedRectangleBorder(
+            side: const BorderSide(width: 1, color: Color(0xFFF3671F)),
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+        child: SizedBox(
+          width: 214,
+          height: 43,
+          child: Center(
+            child: Text(
+              label!,
+              style: const TextStyle(
+                color: Color(0xFFF3671F),
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
         ),
       ),
     );
