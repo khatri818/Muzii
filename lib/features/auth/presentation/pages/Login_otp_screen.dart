@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:io';
 
@@ -11,6 +10,7 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:provider/provider.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 
 import '../../../../common/app_colors.dart';
 import '../../../../common/app_style.dart';
@@ -18,7 +18,6 @@ import '../../../../common/commonButton.dart';
 import '../../../../models/auth_model.dart';
 import '../../../home/presentation/pages/view_releasesscreen.dart';
 import '../../../services/auth_service.dart';
-
 
 class LoginOTPScreen extends StatefulWidget {
   final String phone;
@@ -36,6 +35,7 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
   void initState() {
     _call();
     startTimer();
+    _listenForOTP();
     super.initState();
   }
 
@@ -43,10 +43,15 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
     await authClass.verifyPhoneNumber("+91 ${widget.phone}", context, setData);
   }
 
+  void _listenForOTP() async {
+    await SmsAutoFill().listenForCode;
+  }
+
   FocusNode focusNode = FocusNode();
   AuthClass authClass = AuthClass();
   String verificationIdFinal = "";
   String smsCode = "";
+
   int start = 30;
   String buttonName = "Resend OTP";
   bool wait = true;
@@ -56,6 +61,7 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
     'phoneNumber': null.toString(),
     'phoneCountryCode.': null.toString(),
   };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -175,17 +181,24 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
                 CommonButton(
                     label: "Submit OTP",
                     onPressed: () async {
-                      // await authClass.signInwithPhoneNumber(
-                      //     verificationIdFinal, smsCode, context);
-                      // //  _httpsCall();
+                      await authClass.signInwithPhoneNumber(
+                          verificationIdFinal, smsCode, context);
+                      _httpsCall();
                       // _loginHandler();
                       //    login();
                       // ignore: use_build_context_synchronously
-                      Navigator.of(context).push(
+                      Navigator.pushAndRemoveUntil(
+                        context,
                         MaterialPageRoute(
-                          builder: (context) => const ViewReleasesScreen(),
-                        ),
+                            builder: (BuildContext context) =>
+                                const ViewReleasesScreen()),
+                        ModalRoute.withName('/'),
                       );
+                      // Navigator.of(context).push(
+                      //   MaterialPageRoute(
+                      //     builder: (context) => const ViewReleasesScreen(),
+                      //   ),
+                      // );
                     }),
               ],
             ),
@@ -216,10 +229,31 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
       },
     );
   }
+  //  Widget pinFieldAutoFill() {
+  //   return PinFieldAutoFill(
+  //               decoration: // UnderlineDecoration, BoxLooseDecoration or BoxTightDecoration see https://github.com/TinoGuo/pin_input_text_field for more info,
+  //               currentCode: // prefill with a code
+  //               onCodeSubmitted: //code submitted callback
+  //               onCodeChanged: (pin) {
+  //       if (kDebugMode) {
+  //         // ignore: prefer_interpolation_to_compose_strings
+  //         print("Completed: " + pin);
+  //       }
+  //       setState(() {
+  //         smsCode = pin;
+  //       });
+  //     },//code changed callback
+  //               codeLength: 6//code length, default 6
+  //             );
+    
+  // }
 
   void startTimer() {
-    print("hii");
+    if (kDebugMode) {
+      print("hii");
+    }
     const onsec = Duration(seconds: 1);
+    // ignore: unused_local_variable
     Timer timer = Timer.periodic(onsec, (timer) {
       if (start == 0) {
         setState(() {

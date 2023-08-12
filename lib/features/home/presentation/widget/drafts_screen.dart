@@ -42,8 +42,9 @@ class _DraftsScreenState extends State<DraftsScreen>
             indicatorColor: Colors.grey,
             isScrollable: true,
             labelPadding: const EdgeInsets.symmetric(horizontal: 45),
-            labelColor: AppColors.black,
+            labelColor: AppColors.orange,
             unselectedLabelColor: AppColors.grey,
+            
             labelStyle:
                 const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             tabs: const [

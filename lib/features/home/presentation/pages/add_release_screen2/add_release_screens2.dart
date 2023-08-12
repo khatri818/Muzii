@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/app_colors.dart';
+import 'package:flutter_application_1/features/home/presentation/pages/add_release_screen2/add_release_coverart.dart';
 import 'package:flutter_application_1/features/home/presentation/widget/addnew_artist.dart';
 
 import '../../../../../common/TextField.dart';
@@ -168,15 +169,16 @@ class _AddReleaseSteps2State extends State<AddReleaseSteps2> {
                 },
                 hintText: 'Composer Name',
               ),
-              Styles.sizedBoxH20,
+              Styles.sizedBoxH100,
+              Styles.sizedBoxH100,
               CommonButton(
                 label: "Next Step",
                 onPressed: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //     builder: (context) => FilterChipDemo(),
-                  //   ),
-                  // );
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const CoverArtPage(),
+                    ),
+                  );
                 },
               ),
             ],

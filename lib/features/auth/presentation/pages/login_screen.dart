@@ -1,16 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/app_style.dart';
 import 'package:flutter_application_1/common/commonButton.dart';
 import 'package:flutter_application_1/features/auth/presentation/pages/Login_otp_screen.dart';
 import 'package:flutter_application_1/features/auth/presentation/pages/register.dart';
-import 'package:flutter_application_1/features/home/presentation/pages/add_release_screen2/add_release_coverart.dart';
 import 'package:flutter_application_1/features/services/auth_service.dart';
-import 'package:flutter_application_1/models/auth_model.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../common/app_colors.dart';
 import '../../../../common/style.dart';
@@ -46,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 Styles.sizedBoxH60,
                 Text(
-                  "Welcome to Lemo!",
+                  "Welcome to Muzii!",
                   style: Appstyle.appbar,
                 ),
                 Styles.sizedBoxH20,
@@ -107,31 +102,31 @@ class _LoginPageState extends State<LoginPage> {
                 CommonButton(
                     label: "Continue",
                     onPressed: () {
-                      //  FocusScope.of(context).requestFocus(FocusNode());
-                      // (phone) async {
-                      //   if (kDebugMode) {
-                      //     print(phone.completeNumber);
-                      //   }
-                      //   final response =
-                      //       await Provider.of<AuthModel>(context, listen: false)
-                      //           .login({"phoneNumber": phoneController.text});
-                      // await authClass.verifyPhoneNumber(
-                      //     "+91${phoneController.text}", context, setData);
-                      //  };
+                      FocusScope.of(context).requestFocus(FocusNode());
+                      (phone) async {
+                        if (kDebugMode) {
+                          print(phone.completeNumber);
+                        }
+                        // final response =
+                        //     await Provider.of<AuthModel>(context, listen: false)
+                        //         .login({"phoneNumber": phoneController.text});
+                        await authClass.verifyPhoneNumber(
+                            "+91${phoneController.text}", context, setData);
+                      };
 
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => CoverArtPage()
-                            // LoginOTPScreen(
-                            //   phone: phoneController.text,
-                            // ),
-                            ),
+                        MaterialPageRoute(
+                          builder: (context) => LoginOTPScreen(
+                            phone: phoneController.text,
+                          ),
+                        ),
                       );
                     }),
                 const SizedBox(
-                  height: 210,
+                  height: 190,
                 ),
                 const Text(
-                  "By creating an account or logging in, you agree with Lemo’s ",
+                  "By creating an account or logging in, you agree with Muzii ",
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w300,

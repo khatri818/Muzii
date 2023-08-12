@@ -283,7 +283,7 @@ class _AddReleaseScreenState extends State<AddReleaseScreen> {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                        builder: (context) => const ReviewYourSong()
+                        builder: (context) => const AddReleaseSteps2()
                         //AddReleaseSteps2(),
                         ),
                   );

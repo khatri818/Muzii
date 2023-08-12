@@ -32,6 +32,7 @@ dependencies:
   file_picker: ^5.3.3
   image_picker: ^1.0.2
   audioplayers: ^5.1.0
+  sms_autofill: ^2.3.0
   # flutter_datetime_picker: ^1.5.1
  
 

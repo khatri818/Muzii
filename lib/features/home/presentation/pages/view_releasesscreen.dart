@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/app_colors.dart';
+import 'package:flutter_application_1/common/style.dart';
 import 'package:flutter_application_1/constant/image_resource.dart';
 import 'package:flutter_application_1/features/home/presentation/pages/tabbarview.dart';
 
@@ -19,8 +20,8 @@ class _ViewReleasesScreenState extends State<ViewReleasesScreen> {
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              Styles.sizedBoxH50,
               Image.asset(
                 ImageResource.muziiLogo,
               ),
