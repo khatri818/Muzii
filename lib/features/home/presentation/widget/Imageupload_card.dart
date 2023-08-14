@@ -54,7 +54,7 @@ class ImagePickerCard extends StatefulWidget {
   const ImagePickerCard({super.key});
 
   @override
-  _ImagePickerCardState createState() => _ImagePickerCardState();
+  State<ImagePickerCard> createState() => _ImagePickerCardState();
 }
 
 class _ImagePickerCardState extends State<ImagePickerCard> {
@@ -84,7 +84,7 @@ class _ImagePickerCardState extends State<ImagePickerCard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Image Picker Card'),
+        title: const Text('Image Picker Card'),
       ),
       body: Center(
         child: Column(

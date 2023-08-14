@@ -3,7 +3,7 @@ import 'package:flutter_application_1/constant/image_resource.dart';
 
 import '../../../../common/TextField.dart';
 import '../../../../common/app_style.dart';
-import '../../../../common/commonButton.dart';
+import '../../../../common/common_button.dart';
 import '../../../../common/style.dart';
 
 class AddNewArtist extends StatefulWidget {

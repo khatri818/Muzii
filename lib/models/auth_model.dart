@@ -25,7 +25,9 @@ class AuthModel with ChangeNotifier {
       final res = await http.post('$KBASE_URL_user/login' as Uri,
           headers: {'Content-Type': 'application/json'},
           body: json.encode(loginData));
-      print('Response : $res');
+      if (kDebugMode) {
+        print('Response : $res');
+      }
       final statusCode = res.statusCode;
       final decodedRes = json.decode(res.body);
       if (statusCode >= 400) {

@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../../../../common/TextField.dart';
 import '../../../../common/app_colors.dart';
 import '../../../../common/app_style.dart';
-import '../../../../common/commonButton.dart';
+import '../../../../common/common_button.dart';
 import '../../../../common/common_textformfield_dropdown.dart';
 import '../../../../common/style.dart';
 import '../../../../models/auth_model.dart';
@@ -37,15 +37,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   String genderdrop = '';
   String countrydrop = '';
-  final DateTime _dateTime = DateTime.now();
 
-  void _showDatePicker() {
-    showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2025));
-  }
 
   @override
   void initState() {
@@ -53,6 +45,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(

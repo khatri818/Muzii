@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/app_style.dart';
-import 'package:flutter_application_1/common/commonButton.dart';
-import 'package:flutter_application_1/features/auth/presentation/pages/Login_otp_screen.dart';
+import 'package:flutter_application_1/common/common_button.dart';
+import 'package:flutter_application_1/features/auth/presentation/pages/login_otp_screen.dart';
 import 'package:flutter_application_1/features/auth/presentation/pages/register.dart';
 import 'package:flutter_application_1/features/services/auth_service.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -21,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   FocusNode focusNode = FocusNode();
   TextEditingController phoneController = TextEditingController();
   AuthClass authClass = AuthClass();
+  bool validation = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,6 +74,17 @@ class _LoginPageState extends State<LoginPage> {
                 Styles.sizedBoxH50,
                 IntlPhoneField(
                   focusNode: focusNode,
+                  validator: (value) {
+                    if (value == null || value.number.length < 10) {
+                      return 'Please enter Mobile No.*';
+                    } else {
+                      setState(() {
+                        FocusScope.of(context).unfocus();
+                        validation = true;
+                      });
+                    }
+                    return null;
+                  },
                   controller: phoneController,
                   decoration: InputDecoration(
                     labelText: 'Enter your mobile number',
@@ -101,27 +114,32 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 CommonButton(
                     label: "Continue",
-                    onPressed: () {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      (phone) async {
-                        if (kDebugMode) {
-                          print(phone.completeNumber);
-                        }
-                        // final response =
-                        //     await Provider.of<AuthModel>(context, listen: false)
-                        //         .login({"phoneNumber": phoneController.text});
-                        await authClass.verifyPhoneNumber(
-                            "+91${phoneController.text}", context, setData);
-                      };
+                    onPressed: validation
+                        ? () {
+                            (phone) async {
+                              if (kDebugMode) {
+                                print(phone.completeNumber);
+                              }
+                              // final response =
+                              //     await Provider.of<AuthModel>(context, listen: false)
+                              //         .login({"phoneNumber": phoneController.text});
+                              await authClass.verifyPhoneNumber(
+                                  "+91${phoneController.text}",
+                                  context,
+                                  setData);
+                            };
 
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => LoginOTPScreen(
-                            phone: phoneController.text,
-                          ),
-                        ),
-                      );
-                    }),
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => LoginOTPScreen(
+                                  phone: phoneController.text,
+                                ),
+                              ),
+                            );
+                          }
+                        : () {
+                            showSnackBar(context, "Please Enter Mobile ");
+                          }),
                 const SizedBox(
                   height: 190,
                 ),
@@ -146,3 +164,10 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 }
+
+void showSnackBar(BuildContext context, String text) {
+  final snackBar = SnackBar(content: Text(text));
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+}
+
+void storeTokenAndData(UserCredential userCredential) {}

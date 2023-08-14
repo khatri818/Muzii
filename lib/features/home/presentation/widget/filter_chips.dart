@@ -48,7 +48,6 @@ class _FilterChipWidgetsState extends State<FilterChipWidgets> {
   TextEditingController primaryartistController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    List<String> allItem = widget.listdata;
     return Column(
       children: [
         CommonTextFormField(
@@ -70,7 +69,7 @@ class _FilterChipWidgetsState extends State<FilterChipWidgets> {
         Wrap(
           children: filterChips.map((chipLabel) {
             return Padding(
-              padding: EdgeInsets.all(4.0),
+              padding: const EdgeInsets.all(4.0),
               child: Chip(
                 shape: ContinuousRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),

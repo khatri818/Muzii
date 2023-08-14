@@ -1,21 +1,15 @@
-import 'dart:async';
-import 'dart:io';
+// ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/style.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/otp_field_style.dart';
-import 'package:otp_text_field/style.dart';
-import 'package:provider/provider.dart';
 import 'package:sms_autofill/sms_autofill.dart';
-
 import '../../../../common/app_colors.dart';
 import '../../../../common/app_style.dart';
-import '../../../../common/commonButton.dart';
-import '../../../../models/auth_model.dart';
+import '../../../../common/common_button.dart';
 import '../../../home/presentation/pages/view_releasesscreen.dart';
 import '../../../services/auth_service.dart';
 
@@ -33,26 +27,43 @@ class LoginOTPScreen extends StatefulWidget {
 class _LoginOTPScreenState extends State<LoginOTPScreen> {
   @override
   void initState() {
+    super.initState();
     _call();
     startTimer();
-    _listenForOTP();
-    super.initState();
+    _listenOtp();
+    otp.text = smsCode;
   }
 
   void _call() async {
     await authClass.verifyPhoneNumber("+91 ${widget.phone}", context, setData);
   }
 
-  void _listenForOTP() async {
-    await SmsAutoFill().listenForCode;
+  void _listenOtp() async {
+    final signature = await SmsAutoFill().getAppSignature;
+    if (kDebugMode) {
+      print(signature);
+    }
+    await SmsAutoFill().listenForCode();
+    if (kDebugMode) {
+      print("OTP Listen is called");
+    }
+  }
+
+  @override
+  void dispose() {
+    SmsAutoFill().unregisterListener();
+    _timer.cancel();
+    super.dispose();
   }
 
   FocusNode focusNode = FocusNode();
   AuthClass authClass = AuthClass();
   String verificationIdFinal = "";
   String smsCode = "";
+  String signature = "";
 
   int start = 30;
+  late Timer _timer;
   String buttonName = "Resend OTP";
   bool wait = true;
   bool isLoading = false;
@@ -122,7 +133,9 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
                     ),
                     initialCountryCode: 'IN',
                     onCountryChanged: (country) {
-                      FocusScope.of(context).unfocus();
+                      setState(() {
+                        FocusScope.of(context).unfocus();
+                      });
 
                       if (kDebugMode) {
                         print('Country changed to: ${country.name}');
@@ -137,7 +150,7 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
                       color: Colors.black),
                 ),
                 Styles.sizedBoxH30,
-                otpField(),
+                pinfieldautofill(),
                 // CommonTextFormField(
                 //   autovalidateMode: AutovalidateMode.onUserInteraction,
                 //   keyboardType: TextInputType.phone,
@@ -186,7 +199,6 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
                       _httpsCall();
                       // _loginHandler();
                       //    login();
-                      // ignore: use_build_context_synchronously
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
@@ -206,55 +218,63 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
         ));
   }
 
-  Widget otpField() {
-    return OTPTextField(
-      length: 6,
-      width: MediaQuery.of(context).size.width - 34,
-      fieldWidth: 58,
-      otpFieldStyle: OtpFieldStyle(
-        backgroundColor: AppColors.grey.withOpacity(0.1),
-        borderColor: AppColors.grey.withOpacity(0.1),
-      ),
-      style: const TextStyle(fontSize: 17, color: Colors.black),
-      textFieldAlignment: MainAxisAlignment.spaceAround,
-      fieldStyle: FieldStyle.underline,
-      onCompleted: (pin) {
-        if (kDebugMode) {
-          // ignore: prefer_interpolation_to_compose_strings
-          print("Completed: " + pin);
-        }
-        setState(() {
-          smsCode = pin;
-        });
-      },
-    );
-  }
-  //  Widget pinFieldAutoFill() {
-  //   return PinFieldAutoFill(
-  //               decoration: // UnderlineDecoration, BoxLooseDecoration or BoxTightDecoration see https://github.com/TinoGuo/pin_input_text_field for more info,
-  //               currentCode: // prefill with a code
-  //               onCodeSubmitted: //code submitted callback
-  //               onCodeChanged: (pin) {
+  // Widget otpField() {
+  //   return OTPTextField(
+  //     length: 6,
+  //     width: MediaQuery.of(context).size.width - 34,
+  //     fieldWidth: 58,
+  //     otpFieldStyle: OtpFieldStyle(
+  //       backgroundColor: AppColors.grey.withOpacity(0.1),
+  //       borderColor: AppColors.grey.withOpacity(0.1),
+  //     ),
+  //     style: const TextStyle(fontSize: 17, color: Colors.black),
+  //     textFieldAlignment: MainAxisAlignment.spaceAround,
+  //     fieldStyle: FieldStyle.underline,
+  //     onCompleted: (pin) {
   //       if (kDebugMode) {
-  //         // ignore: prefer_interpolation_to_compose_strings
-  //         print("Completed: " + pin);
+  //         print("Completed: $pin");
   //       }
   //       setState(() {
   //         smsCode = pin;
+
   //       });
-  //     },//code changed callback
-  //               codeLength: 6//code length, default 6
-  //             );
-    
+  //     },
+  //   );
   // }
 
+  Widget pinfieldautofill() {
+    return PinFieldAutoFill(
+      currentCode: smsCode,
+      decoration: BoxLooseDecoration(
+          textStyle: Appstyle.text1,
+          radius: const Radius.circular(12),
+          strokeColorBuilder: FixedColorBuilder(Colors.green.shade200)),
+      codeLength: 6,
+      onCodeChanged: (code) {
+        if (kDebugMode) {
+          print("OnCodeChanged : $code");
+        }
+
+        setState(() {
+          if (code != null) {
+            smsCode = code.toString();
+            if (kDebugMode) {
+              print("OTP: $smsCode");
+            }
+          }
+        });
+      },
+      onCodeSubmitted: (val) {
+        if (kDebugMode) {
+          print("OnCodeSubmitted : $val");
+        }
+      },
+    );
+  }
+
   void startTimer() {
-    if (kDebugMode) {
-      print("hii");
-    }
-    const onsec = Duration(seconds: 1);
-    // ignore: unused_local_variable
-    Timer timer = Timer.periodic(onsec, (timer) {
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(oneSec, (timer) {
       if (start == 0) {
         setState(() {
           timer.cancel();
@@ -275,48 +295,43 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
     startTimer();
   }
 
-  void _errorDialog({required String title, required String errorMessage}) {
-    showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-              title: Text(title),
-              content: Text(errorMessage),
-              actions: [
-                TextButton(
-                  child: const Text('Okay'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              ],
-            )); //End of showDialog method
-  } //End of _errorDialog method
+  // void _errorDialog({required String title, required String errorMessage}) {
+  //   showDialog(
+  //       context: context,
+  //       builder: (_) => AlertDialog(
+  //             title: Text(title),
+  //             content: Text(errorMessage),
+  //             actions: [
+  //               TextButton(
+  //                 child: const Text('Okay'),
+  //                 onPressed: () {
+  //                   Navigator.of(context).pop();
+  //                 },
+  //               )
+  //             ],
+  //           ));
+  // }
+  // void _loginHandler() async {
+  //   setState(() {
+  //     isLoading = true;
+  //   });
 
-  // ignore: unused_element
-  void _loginHandler() async {
-    setState(() {
-      isLoading = true;
-    });
-
-    try {
-      await Provider.of<AuthModel>(context, listen: false).login(loginData);
-    } on HttpException catch (err) {
-      _errorDialog(title: 'An error occoured', errorMessage: err.toString());
-    } catch (err) {
-      _errorDialog(
-          title: 'An error occoured on server', errorMessage: err.toString());
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
-
-  // ignore: unused_element
+  //   try {
+  //     await Provider.of<AuthModel>(context, listen: false).login(loginData);
+  //   } on HttpException catch (err) {
+  //     _errorDialog(title: 'An error occoured', errorMessage: err.toString());
+  //   } catch (err) {
+  //     _errorDialog(
+  //         title: 'An error occoured on server', errorMessage: err.toString());
+  //   } finally {
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //   }
+  // }
   _httpsCall() async {
-    // Fetch the currentUser, and then get its id token
-    final user = await FirebaseAuth.instance.currentUser;
-    final idToken = await user!.getIdToken();
+    final user = FirebaseAuth.instance.currentUser;
+    final idToken = await user?.getIdToken();
     final token = idToken;
     if (kDebugMode) {
       print(token.toString());

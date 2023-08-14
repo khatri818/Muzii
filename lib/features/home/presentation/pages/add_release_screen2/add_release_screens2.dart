@@ -5,7 +5,7 @@ import 'package:flutter_application_1/features/home/presentation/widget/addnew_a
 
 import '../../../../../common/TextField.dart';
 import '../../../../../common/app_style.dart';
-import '../../../../../common/commonButton.dart';
+import '../../../../../common/common_button.dart';
 import '../../../../../common/style.dart';
 
 class AddReleaseSteps2 extends StatefulWidget {
@@ -43,11 +43,6 @@ class _AddReleaseSteps2State extends State<AddReleaseSteps2> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  void _removeFilterChip(String chipLabel) {
-    setState(() {
-      filterChips.remove(chipLabel);
-    });
-  }
 
   void _showDialog() {
     showDialog(
@@ -258,7 +253,6 @@ class _FilterChipWidgetsState extends State<FilterChipWidgets> {
   TextEditingController primaryartistController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    List<String> allItem = widget.listdata;
     return Column(
       children: [
         CommonTextFormField(
@@ -280,7 +274,7 @@ class _FilterChipWidgetsState extends State<FilterChipWidgets> {
         Wrap(
           children: filterChips.map((chipLabel) {
             return Padding(
-              padding: EdgeInsets.all(4.0),
+              padding: const EdgeInsets.all(4.0),
               child: Chip(
                 shape: ContinuousRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
