@@ -19,6 +19,16 @@ class AuthClass {
     return token ?? 'no_token';
   }
 
+  Future<void> logout(BuildContext context) async {
+    await _auth.signOut();
+    // ignore: use_build_context_synchronously
+    // Navigator.popUntil(context, ModalRoute.withName('/login'));
+    // ignore: use_build_context_synchronously
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+        (Route<dynamic> route) => false);
+  }
+
   Future<void> verifyPhoneNumber(
       String phoneNumber, BuildContext context, Function setData) async {
     // ignore: prefer_function_declarations_over_variables
