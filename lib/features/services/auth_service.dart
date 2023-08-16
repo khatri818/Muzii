@@ -1,11 +1,24 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../auth/presentation/pages/login_screen.dart';
 
 class AuthClass {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<String> getAuthToken() async {
+    // final prefs = await SharedPreferences.getInstance();
+    // final token = prefs.getString(authTokenKey);
+    final token = _auth.currentUser?.uid;
+
+    log(token ?? 'no_token');
+    return token ?? 'no_token';
+  }
 
   Future<void> verifyPhoneNumber(
       String phoneNumber, BuildContext context, Function setData) async {
@@ -72,5 +85,4 @@ class AuthClass {
   }
 
   void storeTokenAndData(UserCredential userCredential) {}
-  
 }
