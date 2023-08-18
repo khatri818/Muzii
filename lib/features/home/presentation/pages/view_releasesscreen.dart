@@ -5,6 +5,8 @@ import 'package:flutter_application_1/constant/image_resource.dart';
 import 'package:flutter_application_1/features/auth/presentation/pages/login_screen.dart';
 import 'package:flutter_application_1/features/home/presentation/pages/tabbarview.dart';
 
+import '../../../musicplayer/presentation/pages/music_player_screen.dart';
+import '../../../services/auth_service.dart';
 import 'add_release_screen.dart';
 
 class ViewReleasesScreen extends StatefulWidget {
