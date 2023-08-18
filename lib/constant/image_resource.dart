@@ -12,4 +12,7 @@ class ImageResource {
   static const String profileicon = '$_images/Profileicon.png';
   static const String bxcard = '$_images/bx-card.png';
   static const String bxlist = '$_images/bx-list.png';
+  static const String googlelogo = '$_images/google_logo.png';
+  static const String facebooklogo =  '$_images/facebook_logo.png';
+
 }

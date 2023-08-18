@@ -213,7 +213,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             emailController.text.isEmpty &&
                             phoneController.text.isEmpty &&
                             dobController.text.isEmpty) {
-                          Provider.of<AuthModel>(context).signup({});
+                          // Provider.of<AuthModel>(context).signup({});
                         } else {
                           const snackBar = SnackBar(
                             content: Text('Yay! A SnackBar!'),

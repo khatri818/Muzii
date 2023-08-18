@@ -4,6 +4,7 @@ import 'package:flutter_application_1/common/style.dart';
 import 'package:flutter_application_1/constant/image_resource.dart';
 import 'package:flutter_application_1/features/home/presentation/pages/tabbarview.dart';
 
+import '../../../musicplayer/presentation/pages/music_player_screen.dart';
 import 'add_release_screen.dart';
 
 class ViewReleasesScreen extends StatefulWidget {
@@ -50,7 +51,9 @@ class _ViewReleasesScreenState extends State<ViewReleasesScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  MusicPlayerScreen(),));
+                },
                 icon: const Icon(Icons.music_note),
                 color: AppColors.orange,
               ),

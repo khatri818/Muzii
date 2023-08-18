@@ -1,11 +1,24 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '../auth/presentation/pages/login_screen.dart';
 
 class AuthClass {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<String> getAuthToken() async {
+    // final prefs = await SharedPreferences.getInstance();
+    // final token = prefs.getString(authTokenKey);
+    final token = _auth.currentUser?.uid;
+
+    log(token ?? 'no_token');
+    return token ?? 'no_token';
+  }
 
   Future<void> verifyPhoneNumber(
       String phoneNumber, BuildContext context, Function setData) async {
@@ -72,5 +85,60 @@ class AuthClass {
   }
 
   void storeTokenAndData(UserCredential userCredential) {}
+
+  //my code
+  Future<bool> checkExistingUser(String phoneNumber) async {
+    FirebaseAuth _auth = FirebaseAuth.instance;
+
+    try {
+      ConfirmationResult confirmationResult = await _auth.signInWithPhoneNumber(
+        phoneNumber,
+      );
+
+      return confirmationResult != null;
+    } catch (e) {
+      print('Error checking user existence: $e');
+      return false;
+    }
+  }
+
+   static Future<User?> signInWithGoogle() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
+
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      try {
+        final UserCredential userCredential =
+            await auth.signInWithCredential(credential);
+
+        user = userCredential.user;
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'account-exists-with-different-credential') {
+          // handle the error here
+        }
+        else if (e.code == 'invalid-credential') {
+          // handle the error here
+        }
+      } catch (e) {
+        // handle the error here
+      }
+    }
+
+    return user;
+  }
+
   
 }

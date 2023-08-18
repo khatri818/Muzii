@@ -44,40 +44,42 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBV01B2j2A6hp42ATRdRqGUWKNGoAkiKIM',
-    appId: '1:482923272018:web:23f2cc81d1d72058c30c8b',
-    messagingSenderId: '482923272018',
-    projectId: 'lemo-project-2143f',
-    authDomain: 'lemo-project-2143f.firebaseapp.com',
-    storageBucket: 'lemo-project-2143f.appspot.com',
-    measurementId: 'G-DRHWHN3HF6',
+    apiKey: 'AIzaSyD2O8IB8d_OZ_7HyEE048cNTEg1kU25p7c',
+    appId: '1:690435780923:web:ce15b3c065b0a1cc0d471e',
+    messagingSenderId: '690435780923',
+    projectId: 'muzii-1ba76',
+    authDomain: 'muzii-1ba76.firebaseapp.com',
+    storageBucket: 'muzii-1ba76.appspot.com',
+    measurementId: 'G-FKJVZL97J1',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBQ16JRLwBg91TLNss3r6HUnCxE5aZnnV8',
-    appId: '1:482923272018:android:1fd403028cc75db5c30c8b',
-    messagingSenderId: '482923272018',
-    projectId: 'lemo-project-2143f',
-    storageBucket: 'lemo-project-2143f.appspot.com',
+    apiKey: 'AIzaSyDNOTaah78R05rAE_M7g9njSukTJfX-chQ',
+    appId: '1:690435780923:android:f384317706d1ca780d471e',
+    messagingSenderId: '690435780923',
+    projectId: 'muzii-1ba76',
+    storageBucket: 'muzii-1ba76.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAf9m0LC_jvGd5DiOE1dDnhNIKd9cBk0bI',
-    appId: '1:482923272018:ios:5e3d37db4c4161d1c30c8b',
-    messagingSenderId: '482923272018',
-    projectId: 'lemo-project-2143f',
-    storageBucket: 'lemo-project-2143f.appspot.com',
-    iosClientId: '482923272018-eaif26gdlcot8gnm3om9ok5uvskdlemn.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBpGRa9f1iM5TFL00VQqK03XEM_hRE0L_E',
+    appId: '1:690435780923:ios:375246af1a4df4710d471e',
+    messagingSenderId: '690435780923',
+    projectId: 'muzii-1ba76',
+    storageBucket: 'muzii-1ba76.appspot.com',
+    androidClientId: '690435780923-gap4t3msjf1um12q07cdj9u6crh3pvfr.apps.googleusercontent.com',
+    iosClientId: '690435780923-f9j8d8dcr2v337dinn45unorbnuol1tk.apps.googleusercontent.com',
     iosBundleId: 'com.example.flutterApplication1',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAf9m0LC_jvGd5DiOE1dDnhNIKd9cBk0bI',
-    appId: '1:482923272018:ios:779816d138895e04c30c8b',
-    messagingSenderId: '482923272018',
-    projectId: 'lemo-project-2143f',
-    storageBucket: 'lemo-project-2143f.appspot.com',
-    iosClientId: '482923272018-3f36v1klr8sliarovariaq8bitj33835.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBpGRa9f1iM5TFL00VQqK03XEM_hRE0L_E',
+    appId: '1:690435780923:ios:b824c3e2e61c5a230d471e',
+    messagingSenderId: '690435780923',
+    projectId: 'muzii-1ba76',
+    storageBucket: 'muzii-1ba76.appspot.com',
+    androidClientId: '690435780923-gap4t3msjf1um12q07cdj9u6crh3pvfr.apps.googleusercontent.com',
+    iosClientId: '690435780923-1peinquvb8m64cjhhfvhq7in6rd5a0d6.apps.googleusercontent.com',
     iosBundleId: 'com.example.flutterApplication1.RunnerTests',
   );
 }

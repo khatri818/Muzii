@@ -1,41 +1,42 @@
 {
   "project_info": {
-    "project_number": "482923272018",
-    "project_id": "lemo-project-2143f",
-    "storage_bucket": "lemo-project-2143f.appspot.com"
+    "project_number": "690435780923",
+    "project_id": "muzii-1ba76",
+    "storage_bucket": "muzii-1ba76.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:482923272018:android:1fd403028cc75db5c30c8b",
+        "mobilesdk_app_id": "1:690435780923:android:f384317706d1ca780d471e",
         "android_client_info": {
           "package_name": "com.example.flutter_application_1"
         }
       },
       "oauth_client": [
         {
-          "client_id": "482923272018-ab085qs3juq38tjr7rua6766gk03hmq1.apps.googleusercontent.com",
+          "client_id": "690435780923-gap4t3msjf1um12q07cdj9u6crh3pvfr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_application_1",
+            "certificate_hash": "12b18804e3748d3f67595867407c8a08409a3b8c"
+          }
+        },
+        {
+          "client_id": "690435780923-baktqvjnf3gljahqb6j3anlgm6hrf9l0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBQ16JRLwBg91TLNss3r6HUnCxE5aZnnV8"
+          "current_key": "AIzaSyDNOTaah78R05rAE_M7g9njSukTJfX-chQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "482923272018-ab085qs3juq38tjr7rua6766gk03hmq1.apps.googleusercontent.com",
+              "client_id": "690435780923-baktqvjnf3gljahqb6j3anlgm6hrf9l0.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "482923272018-3f36v1klr8sliarovariaq8bitj33835.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.flutterApplication1.RunnerTests"
-              }
             }
           ]
         }
