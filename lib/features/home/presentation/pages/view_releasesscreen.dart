@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/app_colors.dart';
 import 'package:flutter_application_1/common/style.dart';
 import 'package:flutter_application_1/constant/image_resource.dart';
+import 'package:flutter_application_1/features/auth/presentation/pages/login_screen.dart';
 import 'package:flutter_application_1/features/home/presentation/pages/tabbarview.dart';
 
-import '../../../musicplayer/presentation/pages/music_player_screen.dart';
 import 'add_release_screen.dart';
 
 class ViewReleasesScreen extends StatefulWidget {
@@ -15,14 +15,32 @@ class ViewReleasesScreen extends StatefulWidget {
 }
 
 class _ViewReleasesScreenState extends State<ViewReleasesScreen> {
+  AuthClass authClass = AuthClass();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: AppColors.white.withOpacity(0),
+          actions: [
+            IconButton(
+              icon: const Icon(
+                Icons.logout,
+                color: AppColors.orange,
+                size: 25,
+              ),
+              onPressed: () async {
+                await authClass.logout(context);
+              }, // Call the logout function
+            ),
+          ],
+        ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Styles.sizedBoxH50,
+              // Styles.sizedBoxH50,
               Image.asset(
                 ImageResource.muziiLogo,
               ),
