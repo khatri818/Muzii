@@ -206,11 +206,7 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
                                 const ViewReleasesScreen()),
                         ModalRoute.withName('/'),
                       );
-                      // Navigator.of(context).push(
-                      //   MaterialPageRoute(
-                      //     builder: (context) => const ViewReleasesScreen(),
-                      //   ),
-                      // );
+                      
                     }),
               ],
             ),
@@ -218,29 +214,7 @@ class _LoginOTPScreenState extends State<LoginOTPScreen> {
         ));
   }
 
-  // Widget otpField() {
-  //   return OTPTextField(
-  //     length: 6,
-  //     width: MediaQuery.of(context).size.width - 34,
-  //     fieldWidth: 58,
-  //     otpFieldStyle: OtpFieldStyle(
-  //       backgroundColor: AppColors.grey.withOpacity(0.1),
-  //       borderColor: AppColors.grey.withOpacity(0.1),
-  //     ),
-  //     style: const TextStyle(fontSize: 17, color: Colors.black),
-  //     textFieldAlignment: MainAxisAlignment.spaceAround,
-  //     fieldStyle: FieldStyle.underline,
-  //     onCompleted: (pin) {
-  //       if (kDebugMode) {
-  //         print("Completed: $pin");
-  //       }
-  //       setState(() {
-  //         smsCode = pin;
-
-  //       });
-  //     },
-  //   );
-  // }
+ 
 
   Widget pinfieldautofill() {
     return PinFieldAutoFill(
