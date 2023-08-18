@@ -1,9 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/common/common_loader.dart';
-import 'package:flutter_application_1/features/home/presentation/pages/view_releasesscreen.dart';
-import 'package:flutter_application_1/features/services/auth_service.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'features/auth/presentation/pages/login_screen.dart';
@@ -56,7 +54,7 @@ class MyApp extends StatelessWidget {
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
                     color: Colors.white),
-                                   ),
+              ),
             ),
             home: const LoginPage()
             //  FutureBuilder<String>(
